@@ -1,0 +1,26 @@
+{
+  "name": "فان كاش برو للمبيعات الميدانية",
+  "short_name": "فان كاش Pro",
+  "description": "منظومة محاسبية ومخزنية متكاملة لسيارات التوزيع تعمل بدون إنترنت بنظام القيد المزدوج",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#EDF2F0",
+  "theme_color": "#0E7C66",
+  "orientation": "portrait",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3649/3649275.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3649/3649275.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
