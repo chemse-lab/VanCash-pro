@@ -37,6 +37,12 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);min-height:10
 .screen.active{display:flex}
 .scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 
+.install-banner{grid-column:1/-1;background:linear-gradient(135deg, var(--brand), #11997E);color:var(--brand-ink);border-radius:var(--r-lg);padding:16px;display:none;align-items:center;gap:14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.install-banner .info{flex:1}
+.install-banner h3{margin:0 0 4px;font-size:15px;font-weight:800}
+.install-banner p{margin:0;font-size:12px;opacity:0.9;line-height:1.3}
+.install-banner .inst-btn{background:var(--surface);color:var(--brand);border:none;border-radius:10px;padding:10px 16px;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.15);white-space:nowrap}
+
 .summary{padding:16px 16px 4px;display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
 .stat{background:var(--surface);border-radius:var(--r-md);padding:14px 16px;box-shadow:var(--shadow);border:1px solid var(--line)}
 .stat .k{font-size:12.5px;color:var(--ink-soft);margin-bottom:6px}
@@ -54,21 +60,16 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);min-height:10
 .tile.sell .ic{background:var(--brand);color:var(--brand-ink)}
 .tile.collect .ic{background:var(--accent);color:#fff}
 
-.install-banner{grid-column:1/-1;background:linear-gradient(135deg, var(--brand), #11997E);color:var(--brand-ink);border-radius:var(--r-lg);padding:16px;display:none;align-items:center;gap:14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.install-banner .info{flex:1}
-.install-banner h3{margin:0 0 4px;font-size:15px;font-weight:800}
-.install-banner p{margin:0;font-size:12px;opacity:0.9;line-height:1.3}
-.install-banner .inst-btn{background:var(--surface);color:var(--brand);border:none;border-radius:10px;padding:10px 16px;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.15);white-space:nowrap}
-
 .searchbar{padding:12px 14px 6px;display:flex;gap:10px}
 .searchbar input{flex:1;height:48px;border:1.5px solid var(--line);border-radius:var(--r-md);background:var(--surface);color:var(--ink);font-family:inherit;font-size:16px;padding:0 16px}
 .scan{width:48px;height:48px;border:none;border-radius:var(--r-md);background:var(--accent);color:#fff;font-size:21px;cursor:pointer;flex:0 0 auto}
 
-.products{flex:1;overflow-y:auto;padding:8px 12px calc(var(--peek) + 12px);display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);align-content:start}
+/* تم تحديث تصميم شبكة البيع لتتناسب مع الهواتف بدقة */
+.products{flex:1;overflow-y:auto;padding:8px 12px calc(var(--peek) + 12px);display:grid;grid-template-columns:repeat(auto-fill, minmax(105px, 1fr));gap:var(--gap);align-content:start}
 .pcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;box-shadow:var(--shadow);transition:transform .1s var(--ease);position:relative;min-height:128px}
 .pcard:active{transform:scale(.94)}
 .pcard .img{width:54px;height:54px;border-radius:14px;background:var(--brand-soft);display:grid;place-items:center;font-size:27px}
-.pcard .nm{font-size:12.5px;font-weight:700;text-align:center;line-height:1.25;min-height:2.4em}
+.pcard .nm{font-size:12.5px;font-weight:700;text-align:center;line-height:1.25;min-height:2.4em;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pcard .pr{font-size:13px;font-weight:800;color:var(--brand)}
 .pcard .stk{position:absolute;inset-block-start:6px;inset-inline-start:6px;font-size:10.5px;font-weight:700;color:var(--ink-soft);background:var(--surface-2);padding:2px 7px;border-radius:10px}
 .pcard.low .stk{color:#fff;background:var(--danger)}
@@ -103,7 +104,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);min-height:10
 .cart-empty{padding:30px 16px 40px;text-align:center;color:var(--ink-soft)}
 .cart-empty .e{font-size:40px}
 .totals{padding:12px 16px;background:var(--surface-2);border-radius:var(--r-md);margin:4px 0 12px}
-.trow{display:flex;justify-space-between;font-size:13.5px;padding:3px 0;color:var(--ink-soft)}
+.trow{display:flex;justify-content:space-between;font-size:13.5px;padding:3px 0;color:var(--ink-soft)}
 .trow.grand{font-size:18px;font-weight:800;color:var(--ink);padding-top:8px;margin-top:4px;border-top:1px dashed var(--line)}
 .trow.profit{color:var(--ok);font-weight:700}
 
@@ -119,14 +120,32 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);min-height:10
 .list{flex:1;overflow-y:auto;padding:6px 14px 24px}
 
 .crow{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;cursor:pointer;box-shadow:var(--shadow)}
-.prow{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow)}
+.crow .ci {flex:1;min-width:0}
+.crow .ci b{font-size:15px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crow .ci span{font-size:12.5px;color:var(--ink-soft)}
+.bal{text-align:left;flex:0 0 auto}
+.bal .amt{font-size:16px;font-weight:800}
+.bal .lbl{font-size:11px;color:var(--ink-soft)}
+.bal.debt .amt{color:var(--danger)}
+.bal.clear .amt{color:var(--ok)}
+
+/* تصميم جديد كلياً لبطاقات الإدارة الخاصة بالمنتجات لمنع تداخل النصوص */
+.prow {background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:14px;margin-bottom:12px;display:grid;grid-template-columns:52px 1fr;gap:12px;box-shadow:var(--shadow);align-items:start}
 .prow.low {border-color:var(--danger)}
-.pic{width:46px;height:46px;border-radius:13px;background:var(--brand-soft);display:grid;place-items:center;font-size:23px;flex:0 0 auto}
-.prow .pi {flex:1;min-width:0}.prow .pi b{font-size:14px;display:block}.prow .pi span{font-size:11.5px;color:var(--ink-soft)}
-.qcol{text-align:center;flex:0 0 auto;min-width:50px}.qcol .n{font-size:19px;font-weight:800}.qcol.low .n{color:var(--danger)}.qcol .u{font-size:10px;color:var(--ink-soft)}
-.acts{display:flex;gap:6px;flex:0 0 auto}
-.acts button{width:40px;height:40px;border:none;border-radius:11px;font-size:18px;font-weight:800;cursor:pointer}
-.acts .add{background:var(--brand);color:var(--brand-ink)}.acts .adj{background:var(--surface-2);color:var(--ink)}
+.prow .pic {width:52px;height:52px;border-radius:14px;background:var(--brand-soft);display:grid;place-items:center;font-size:26px;grid-row:span 2}
+.prow .pi {display:flex;flex-direction:column;gap:5px;min-width:0}
+.prow .pi b {font-size:14.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink)}
+.prow .pi span {font-size:12px;color:var(--ink-soft);line-height:1.4}
+.qacts {grid-column:1 / -1;display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:12px;border-top:1px dashed var(--line)}
+.qcol {display:flex;align-items:baseline;gap:6px}
+.qcol .n {font-size:20px;font-weight:800}
+.qcol.low .n {color:var(--danger)}
+.qcol .u {font-size:11.5px;color:var(--ink-soft)}
+.acts {display:flex;gap:8px}
+.acts button {width:42px;height:42px;border:none;border-radius:12px;font-size:19px;font-weight:800;cursor:pointer;display:grid;place-items:center}
+.acts .add {background:var(--brand);color:var(--brand-ink)}
+.acts .adj2 {background:var(--surface-2);color:var(--ink)}
+.acts .adj {background:var(--surface-2);color:var(--ink)}
 
 .sheet{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.5);display:none;align-items:flex-end}
 .sheet.show{display:flex}
@@ -156,7 +175,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);min-height:10
 .nav button.active{color:var(--brand)}
 
 .toast{position:fixed;inset-block-end:84px;inset-inline:0;display:flex;justify-content:center;z-index:60;pointer-events:none}
-.toast div{background:var(--ok);color:#fff;padding:13px 24px;border-radius:30px;font-weight:800;font-size:15px;box-shadow:var(--shadow);transform:translateY(80px);opacity:0;transition:all .35s var(--ease)}
+.toast div{background:var(--ok);color:#fff;padding:13px 24px;border-radius:30px;font-weight:800;font-size:15px;box-shadow:var(--shadow);transform:translateY(80px);opacity:0;transition:all .35s var(--ease);text-align:center}
 .toast.show div{transform:translateY(0);opacity:1}
 </style>
 </head>
@@ -204,7 +223,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);min-height:10
 <section class="screen" id="s-sell">
   <div class="searchbar">
     <input id="q" type="search" placeholder="🔍 ابحث عن منتج أو امسح الباركود…" oninput="renderProducts()">
-    <button class="scan" onclick="alert('الماسح يُفعّل عبر كاميرا الهاتف في نسخة PWA الموثقة')">📷</button>
+    <button class="scan" onclick="alert('الماسح يُفعّل عبر كاميرا الهاتف في نسخة التطبيق الموثقة')">📷</button>
   </div>
   <div class="products" id="products"></div>
 </section>
@@ -288,7 +307,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);min-height:10
         <div class="pt" data-pay="partial" onclick="setPay('partial')"><span class="pi2">➗</span>جزئي</div>
       </div>
     </div>
-    <div class="field partial-box" id="partialBox"><label>المبلغ المدفوع حَالاً</label><input id="paidNow" type="number" placeholder="0" oninput="updateRemain()"><div class="remain" id="remain" style="color:var(--danger)"></div></div>
+    <div class="field partial-box" id="partialBox"><label>المبلغ المدفوع حالاً</label><input id="paidNow" type="number" placeholder="0" oninput="updateRemain()"><div class="remain" id="remain" style="color:var(--danger)"></div></div>
     <button class="btn" id="btnConfirmSale" onclick="confirmSale()">✅ تأكيد العملية الحسابية · <span class="num" id="confirmTotal">0</span> دج</button>
   </div>
 </div>
@@ -934,6 +953,177 @@ window.VanCash = {
 </script>
 
 <script>
+const VCPrint = (function(){
+  let PAPER = 58;
+  const DOTS = { 58:384, 80:576 };
+  let device=null, characteristic=null;
+
+  const SVC  = '000018f0-0000-1000-8000-00805f9b34fb';
+  const CHAR = '00002af1-0000-1000-8000-00805f9b34fb';
+
+  const fmt = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'\u202F');
+
+  function renderCanvas(inv, company){
+    const W = DOTS[PAPER];
+    const pad = 16;
+    const c = document.createElement('canvas');
+    const ctx = c.getContext('2d');
+    const lineH = 34, headH = 240, footH = 190;
+    const h = headH + inv.lines.length*lineH + footH;
+    c.width = W; c.height = h;
+
+    ctx.fillStyle = '#fff'; ctx.fillRect(0,0,W,h);
+    ctx.fillStyle = '#000';
+    ctx.textBaseline = 'top';
+    ctx.direction = 'rtl';
+
+    let y = pad;
+    const R = W - pad;
+    const L = pad;
+    const center = W/2;
+
+    const line = (txt, size, align='center', bold=false)=>{
+      ctx.font = `${bold?'bold ':''}${size}px "Segoe UI", Tahoma, Arial`;
+      ctx.textAlign = align==='center'?'center':(align==='right'?'right':'left');
+      const x = align==='center'?center:(align==='right'?R:L);
+      ctx.fillText(txt, x, y);
+      y += size+8;
+    };
+    const sep = ()=>{ ctx.fillRect(L, y+4, W-2*pad, 1); y+=12; };
+    const row2 = (rightTxt, leftTxt, size=22, bold=false)=>{
+      ctx.font = `${bold?'bold ':''}${size}px "Segoe UI", Tahoma, Arial`;
+      ctx.textAlign='right'; ctx.fillText(rightTxt, R, y);
+      ctx.textAlign='left';  ctx.fillText(leftTxt,  L, y);
+      y += size+8;
+    };
+
+    line(company.name||'فان كاش', 34, 'center', true);
+    if(company.address) line(company.address, 20);
+    if(company.phone)   line('الهاتف: '+company.phone, 20);
+    if(company.tax_id)  line('الرقم الجبائي: '+company.tax_id, 18);
+    sep();
+
+    row2('فاتورة رقم:', inv.number, 22, true);
+    row2('التاريخ:', new Date(inv.ts).toLocaleString('fr-DZ',{dateStyle:'short',timeStyle:'short'}), 20);
+    row2('الزبون:', inv.customerName||'زبون عابر', 20);
+    const typeTxt = inv.type==='cash'?'نقدي':(inv.type==='credit'?'آجل':'دفع جزئي');
+    row2('نوع الدفع:', typeTxt, 20);
+    sep();
+
+    ctx.font = 'bold 20px "Segoe UI", Tahoma, Arial';
+    ctx.textAlign='right'; ctx.fillText('المنتج', R, y);
+    ctx.textAlign='center'; ctx.fillText('كمية', center+40, y);
+    ctx.textAlign='left'; ctx.fillText('المجموع', L, y);
+    y += 26; sep();
+
+    inv.lines.forEach(l=>{
+      ctx.font = '21px "Segoe UI", Tahoma, Arial';
+      ctx.textAlign='right';
+      let nameTxt = l.name || l.productName || '';
+      if(nameTxt.length > 17) nameTxt = nameTxt.slice(0, 15) + '..';
+      ctx.fillText(nameTxt, R, y);
+
+      ctx.textAlign='center'; ctx.fillText(String(l.qty), center+40, y);
+      ctx.textAlign='left';   ctx.fillText(fmt(l.price*l.qty), L, y);
+      y += lineH;
+    });
+    sep();
+
+    row2('المجموع الفرعي:', fmt(inv.subtotal)+' دج', 22);
+    if(inv.tva>0) row2('TVA:', fmt(inv.tva)+' دج', 20);
+    row2('الإجمالي العام:', fmt(inv.total)+' دج', 28, true);
+    row2('المدفوع حالاً:', fmt(inv.paid)+' دج', 22);
+    if(inv.due>0) row2('الباقي المقيّد كدين:', fmt(inv.due)+' دج', 24, true);
+    sep();
+
+    line('شكرًا لتعاملكم معنا 🙏', 22, 'center', true);
+    line('VanCash Pro — نظام التوزيع الميداني الموثق', 16, 'center');
+
+    const out = document.createElement('canvas');
+    out.width=W; out.height=Math.min(y+pad, h);
+    out.getContext('2d').drawImage(c,0,0);
+    return out;
+  }
+
+  function canvasToEscpos(canvas){
+    const w = canvas.width, h = canvas.height;
+    const ctx = canvas.getContext('2d');
+    const img = ctx.getImageData(0,0,w,h).data;
+    const bytesPerRow = Math.ceil(w/8);
+
+    const mono = new Uint8Array(bytesPerRow*h);
+    for(let yy=0; yy<h; yy++){
+      for(let xx=0; xx<w; xx++){
+        const i=(yy*w+xx)*4;
+        const lum = 0.299*img[i]+0.587*img[i+1]+0.114*img[i+2];
+        const alpha = img[i+3];
+        if(alpha>128 && lum<128){ mono[yy*bytesPerRow + (xx>>3)] |= (0x80 >> (xx&7)); }
+      }
+    }
+
+    const xL = bytesPerRow & 0xff, xH = (bytesPerRow>>8)&0xff;
+    const yL = h & 0xff, yH = (h>>8)&0xff;
+    const header = [0x1D,0x76,0x30,0x00, xL,xH, yL,yH];
+
+    const ESC=0x1B, GS=0x1D;
+    const init   = [ESC,0x40];
+    const center = [ESC,0x61,0x01];
+    const feed   = [0x0A,0x0A,0x0A];
+    const cut    = [GS,0x56,0x42,0x00];
+
+    const out = new Uint8Array(init.length+center.length+header.length+mono.length+feed.length+cut.length);
+    let p=0;
+    out.set(init,p); p+=init.length;
+    out.set(center,p); p+=center.length;
+    out.set(header,p); p+=header.length;
+    out.set(mono,p); p+=mono.length;
+    out.set(feed,p); p+=feed.length;
+    out.set(cut,p); p+=cut.length;
+    return out;
+  }
+
+  async function connect(){
+    if(!navigator.bluetooth) throw new Error('البلوتوث غير مفعل بالهاتف أو غير مدعوم بالمتصفح.');
+    device = await navigator.bluetooth.requestDevice({
+      acceptAllDevices: true,
+      optionalServices: [SVC, '000018f0-0000-1000-8000-00805f9b34fb', '49535343-fe7d-4ae5-8fa9-9fafd205e455']
+    });
+    const server = await device.gatt.connect();
+    let svc;
+    try{ svc = await server.getPrimaryService(SVC); }
+    catch(e){ svc = await server.getPrimaryService('49535343-fe7d-4ae5-8fa9-9fafd205e455'); }
+    const chars = await svc.getCharacteristics();
+    characteristic = chars.find(c=>c.properties.write||c.properties.writeWithoutResponse) || chars[0];
+    return device.name||'طابعة الموزع الحرارية';
+  }
+
+  async function sendBytes(bytes){
+    if(!characteristic) throw new Error('لم يتم ربط أي طابعة عبر البلوتوث.');
+    const CHUNK = 200;
+    for(let i=0; i<bytes.length; i+=CHUNK){
+      const slice = bytes.slice(i, i+CHUNK);
+      if(characteristic.properties.writeWithoutResponse)
+        await characteristic.writeValueWithoutResponse(slice);
+      else
+        await characteristic.writeValue(slice);
+      await new Promise(r=>setTimeout(r,20));
+    }
+  }
+
+  async function print(inv, company){
+    const canvas = renderCanvas(inv, company);
+    const bytes  = canvasToEscpos(canvas);
+    if(!characteristic) await connect();
+    await sendBytes(bytes);
+  }
+
+  function setPaper(mm){ PAPER = (mm==80?80:58); }
+  return { renderCanvas, canvasToEscpos, connect, print, setPaper, fmt };
+})();
+window.VCPrint = VCPrint;
+</script>
+
+<script>
 const $=s=>document.querySelector(s);
 const fmt=n=>String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'\u202F');
 const initials=name=>name.trim().slice(0,2);
@@ -1087,7 +1277,7 @@ function lineEditMsg(){
 }
 function saveLineEdit(){
   const np=+($('#editPrice').value||0); if(np<=0){flash('أدخل سعر بيع صحيح ومقبول محاسبياً',true);return;}
-  cart[EDIT_LINE].price=np; closeSheet('lineEditSheet'); refreshCart(); flash('تمّ اعتماد السعر الجديد بالسلة ✅');
+  cart[EDIT_LINE].price=np; closeSheet('lineEditSheet'); refreshCart(); flash('تم اعتماد السعر الجديد بالسلة ✅');
 }
 function resetLinePrice(){
   const p=PRODUCTS.find(x=>x.id==EDIT_LINE); $('#editPrice').value=Math.round(p.price); $('#editDisc').value=''; lineEditMsg();
@@ -1125,20 +1315,20 @@ async function confirmSale(){
 function showInvoice(inv){$('#invNo').textContent=inv.number;setPaperAndRedraw(58);$('#invSheet').classList.add('show');$('#printMsg').textContent='';}
 function drawInvoice(){if(!LAST_INVOICE)return;const canvas=VCPrint.renderCanvas(LAST_INVOICE,COMPANY);const t=$('#invCanvas');t.width=canvas.width;t.height=canvas.height;t.getContext('2d').drawImage(canvas,0,0);}
 function setPaperAndRedraw(mm){VCPrint.setPaper(mm);$('#p58').style.background=mm===58?'var(--brand-soft)':'var(--surface-2)';$('#p80').style.background=mm===80?'var(--brand-soft)':'var(--surface-2)';drawInvoice();}
-async function doPrint(){const m=$('#printMsg');try{m.style.color='var(--ink-soft)';m.textContent='¼ا± ا±¨ط وإ±³ا مµو ا¨يانا طا·ا¨ة…';await VCPrint.print(LAST_INVOICE,COMPANY);m.style.color='var(--ok)';m.textContent='تّت ع¹ية اط¨اعة ¨نجاح ✅';}catch(e){m.style.color='var(--danger)';m.textContent=e.message||'ش ااتµا الاسكي ¨اطا¨عة اح±ا±ية';}}
-async function shareInvoice(){const canvas=$('#invCanvas');canvas.toBlob(async(blob)=>{const file=new File([blob],LAST_INVOICE.number+'.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:'اتو±ة ± '+LAST_INVOICE.number});}catch(e){}}else{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=LAST_INVOICE.number+'.png';a.click();}});}
-function closeInvoice(){$('#invSheet').classList.remove('show');flash('ت حظ وت±حي يو ا³تن ¨نجاح و¹طاا·ة اعهدة ا¹يدانية ✅');refreshHome();}
+async function doPrint(){const m=$('#printMsg');try{m.style.color='var(--ink-soft)';m.textContent='جارٍ الربط وإرسال مصفوفة البيانات للطابعة…';await VCPrint.print(LAST_INVOICE,COMPANY);m.style.color='var(--ok)';m.textContent='تمت عملية الطباعة بنجاح ✅';}catch(e){m.style.color='var(--danger)';m.textContent=e.message||'فشل الاتصال اللاسلكي للطابعة الحرارية';}}
+async function shareInvoice(){const canvas=$('#invCanvas');canvas.toBlob(async(blob)=>{const file=new File([blob],LAST_INVOICE.number+'.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:'فاتورة رقم '+LAST_INVOICE.number});}catch(e){}}else{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=LAST_INVOICE.number+'.png';a.click();}});}
+function closeInvoice(){$('#invSheet').classList.remove('show');flash('تم حفظ وترحيل المستند بنجاح ومطابقة العهدة ✅');refreshHome();}
 
-function rebuildCustomerSelect(){const sel=$('#customer');sel.innerHTML='<option value="cash">🚶 ز¨ون عا¨ (نقدي)</option>'+CUSTOMERS.map(c=>{const bal=c.balance>0?` — دَْ ${fmt(c.balance)} دج`:'';return `<option value="${esc(c.id)}">${esc(c.name)}${bal}</option>`;}).join('');}
+function rebuildCustomerSelect(){const sel=$('#customer');sel.innerHTML='<option value="cash">🚶 زبون عابر (نقدي)</option>'+CUSTOMERS.map(c=>{const bal=c.balance>0?` — دَيْن ${fmt(c.balance)} دج`:'';return `<option value="${esc(c.id)}">${esc(c.name)}${bal}</option>`;}).join('');}
 function renderCustomers(){
   const q=$('#qc').value.trim().toLowerCase(); let totalDebt=0,debtors=0; CUSTOMERS.forEach(c=>{if(c.balance>0){totalDebt+=c.balance;debtors++;}});
   $('#totalDebt').textContent=fmt(totalDebt);$('#debtorCount').textContent=debtors;
   const filtered=CUSTOMERS.filter(c=>!q||c.name.toLowerCase().includes(q)||(c.phone||'').includes(q)).sort((a,b)=>(b.balance||0)-(a.balance||0));
   const list=$('#custList'); list.innerHTML='';
-  if(filtered.length===0){list.innerHTML='<div style="text-align:center;color:var(--ink-soft);padding:40px">ا يوجد ز¨ائن ¹سجي ن ¨هذا ااس<br><button class="btn" style="max-width:200px;margin:16px auto 0" onclick="openAddCust()">➕ إضاة ز¨ون جديد</button></div>';return;}
+  if(filtered.length===0){list.innerHTML='<div style="text-align:center;color:var(--ink-soft);padding:40px">لا يوجد زبائن مسجلين بهذا الاسم<br><button class="btn" style="max-width:200px;margin:16px auto 0" onclick="openAddCust()">➕ إضافة زبون جديد</button></div>';return;}
   filtered.forEach(c=>{
     const debt=c.balance>0; const el=document.createElement('div'); el.className='crow';
-    el.innerHTML=`<div class="avatar">${esc(initials(c.name))}</div><div class="ci"><b>${esc(c.name)}</b><span>${esc(c.phone||'—')}</span></div><div class="bal ${debt?'debt':'clear'}"><div class="amt"><span class="num">${fmt(c.balance||0)}</span></div><div class="lbl">${debt?'دَْ ¹ستحق دج':'¹سدََّّد ¨اكا¹ ✅'}</div></div>`;
+    el.innerHTML=`<div class="avatar">${esc(initials(c.name))}</div><div class="ci"><b>${esc(c.name)}</b><span>${esc(c.phone||'—')}</span></div><div class="bal ${debt?'debt':'clear'}"><div class="amt"><span class="num">${fmt(c.balance||0)}</span></div><div class="lbl">${debt?'دَيْن مستحق':'مسدَّد بالكامل ✅'}</div></div>`;
     el.onclick=()=>openStatement(c.id); list.appendChild(el);
   });
   if(!$('#addCustFab')){
@@ -1156,62 +1346,62 @@ async function openStatement(id){
   const ev=$('#stEvents'); ev.innerHTML='';
   [...st.events].reverse().forEach(e=>{
     const isInv=e.type==='invoice'; const d=new Date(e.ts).toLocaleString('fr-DZ',{dateStyle:'short',timeStyle:'short'}); const row=document.createElement('div'); row.className='ev '+(isInv?'inv':'rec');
-    row.innerHTML=`<div class="ico">${isInv?'🧾':'💵'}</div><div class="info"><b>${isInv?'اتو±ة ¨يع':'تحµي ¹اي'} ${esc(e.ref)}</b><span>${d}</span></div><div class="amt ${isInv?'d':'c'}">${isInv?'+':'−'}<span class="num">${fmt(isInv?e.debit:e.credit)}</span></div><div class="run">±µيد جا±ٍ<br><span class="num">${fmt(e.balance)}</span></div>`; ev.appendChild(row);
+    row.innerHTML=`<div class="ico">${isInv?'🧾':'💵'}</div><div class="info"><b>${isInv?'فاتورة بيع':'تحصيل مالي'} ${esc(e.ref)}</b><span>${d}</span></div><div class="amt ${isInv?'d':'c'}">${isInv?'+':'−'}<span class="num">${fmt(isInv?e.debit:e.credit)}</span></div><div class="run">رصيد جارٍ<br><span class="num">${fmt(e.balance)}</span></div>`; ev.appendChild(row);
   });
-  if(st.events.length===0)ev.innerHTML='<div style="text-align:center;color:var(--ink-soft);padding:20px">ا توجد يو ¹سجة لهذا اح³ا¨ ¨ادت± ا¹ساعد</div>';
+  if(st.events.length===0)ev.innerHTML='<div style="text-align:center;color:var(--ink-soft);padding:20px">لا توجد قيود مسجلة لهذا الحساب بالدفتر المساعد</div>';
   $('#collectBtn').style.display=st.balance>0?'block':'none'; $('#stSheet').classList.add('show');
 }
 
 function openCollect(){const c=CUSTOMERS.find(x=>x.id===CURRENT_CUST);$('#curDebt').textContent=fmt(c.balance||0);$('#payAmount').value='';$('#afterMsg').textContent='';$('#collectSheet').classList.add('show');}
 function setFull(){const c=CUSTOMERS.find(x=>x.id===CURRENT_CUST);$('#payAmount').value=Math.round(c.balance||0);updateAfter();}
-function updateAfter(){const c=CUSTOMERS.find(x=>x.id===CURRENT_CUST);const pay=+($('#payAmount').value||0);const after=(c.balance||0)-pay;const m=$('#afterMsg');if(pay<=0){m.textContent='';return;}if(after>0){m.style.color='var(--danger)';m.textContent=`يت¨قى ¨ذ¹ة اعي: ${fmt(after)} دج`;}else if(after===0){m.style.color='var(--ok)';m.textContent='سيت تµية وإغلاق ح³ا¨...';}else{m.style.color='var(--warn)';m.textContent='تن¨يه: ا¹¨غ ا¹دخ أكب± ¹ن ا±µيد ا¹دين لعي';}}
+function updateAfter(){const c=CUSTOMERS.find(x=>x.id===CURRENT_CUST);const pay=+($('#payAmount').value||0);const after=(c.balance||0)-pay;const m=$('#afterMsg');if(pay<=0){m.textContent='';return;}if(after>0){m.style.color='var(--danger)';m.textContent=`يتبقى بذمة العميل: ${fmt(after)} دج`;}else if(after===0){m.style.color='var(--ok)';m.textContent='سيتم تصفية وإغلاق الحساب بالكامل ✅';}else{m.style.color='var(--warn)';m.textContent='تنبيه: القيمة المدخلة أكبر من الرصيد المدين للعميل';}}
 
 async function doCollect(){
   if(isSubmitting) return;
-  const pay=+($('#payAmount').value||0); if(pay<=0){flash('أدخ ¹¨غ تحµي µحيح قانوناً',true);return;}
+  const pay=+($('#payAmount').value||0); if(pay<=0){flash('أدخل مبلغ تحصيل صحيح قانوناً',true);return;}
   isSubmitting = true; $('#btnDoCollect').disabled = true;
   try{
     const r=await VanCash.recordReceipt(CURRENT_CUST,pay); CUSTOMERS=await VanCash.getCustomers(); rebuildCustomerSelect();
-    closeSheet('collectSheet'); await openStatement(CURRENT_CUST); renderCustomers(); await afterOperation(); flash(`ت ق¨ض وإµدا± سند اتحµي ± ${r.number} ¨نجاح ✅`);
-  }catch(e){flash(e.message||'حدث خطأ غي± ¹توقع ¨ا¹نظو¹ة اح³ا¨ية لتحµي',true);}
+    closeSheet('collectSheet'); await openStatement(CURRENT_CUST); renderCustomers(); await afterOperation(); flash(`تم قبض وإصدار السند رقم ${r.number} بنجاح ✅`);
+  }catch(e){flash(e.message||'حدث خطأ غير متوقع بالمنظومة الحسابية',true);}
   finally { isSubmitting = false; $('#btnDoCollect').disabled = false; }
 }
 
 function openAddCust(){$('#newName').value='';$('#newPhone').value='';$('#addCustSheet').classList.add('show');}
 async function saveCustomer(){
   if(isSubmitting) return;
-  const name=$('#newName').value.trim(); if(!name){flash('ااس اتجا±ي لعي إزا¹ي لتسجي',true);return;}
+  const name=$('#newName').value.trim(); if(!name){flash('الاسم التجاري للعميل إلزامي للتسجيل',true);return;}
   isSubmitting = true; $('#btnSaveCustomer').disabled = true;
   try {
     await VanCash.db.customers.add({id:VanCash.uid('c_'),name,phone:$('#newPhone').value.trim(),balance:0});
-    CUSTOMERS=await VanCash.getCustomers(); rebuildCustomerSelect(); closeSheet('addCustSheet'); renderCustomers(); flash('ت تح ¹ل اح³ا¨... ✅');
-  } catch(e) { flash('ش ت±حي ¨يانا اعي لقاعدة ا¨يانا ا¹حية', true); }
+    CUSTOMERS=await VanCash.getCustomers(); rebuildCustomerSelect(); closeSheet('addCustSheet'); renderCustomers(); flash('تم فتح ملف الحساب التجاري الجديد بنجاح ✅');
+  } catch(e) { flash('فشل ترحيل بيانات العميل لقاعدة البيانات المحلية', true); }
   finally { isSubmitting = false; $('#btnSaveCustomer').disabled = false; }
 }
 
-function openAddStock(p){STOCK_TARGET=p;$('#addStockTitle').textContent='تحي µن: '+p.name;$('#addStockSub').textContent=`ا¹خزون احاي ¨ا¹±كبة: ${p.stock} قطعة`;$('#addQty').value='';$('#addStockSheet').classList.add('show');}
+function openAddStock(p){STOCK_TARGET=p;$('#addStockTitle').textContent='تحميل صنف: '+p.name;$('#addStockSub').textContent=`المخزون الحالي بالمركبة: ${p.stock} قطعة`;$('#addQty').value='';$('#addStockSheet').classList.add('show');}
 function bumpStock(v){const el=$('#addQty');el.value=(+(el.value||0))+v;}
 async function doAddStock(){
   if(isSubmitting) return;
-  const q=+($('#addQty').value||0); if(q<=0){flash('ا±جا كتا¨ة كيات شحن µحيحة و¹ق¨ولة لڤان',true);return;}
+  const q=+($('#addQty').value||0); if(q<=0){flash('الرجاء كتابة كميات شحن صحيحة',true);return;}
   isSubmitting = true; $('#btnDoAddStock').disabled = true;
   try{
-    await VanCash.addStock(STOCK_TARGET.id,q,'تحي شحنة سع'); PRODUCTS=await VanCash.getProductsWithStock();
-    closeSheet('addStockSheet'); renderProductsAdmin(); await afterOperation(); flash(`ت شحن ا¹±كبة وتحديث اأستاذ اعا ¨ـ ${q} قطعة µن ¨نجاح ✅`);
-  }catch(e){flash(e.message||'ش تعدي ح±كات ا³ع ¨اقيد ا¹زدوج ل¹ث¨ت',true);}
+    await VanCash.addStock(STOCK_TARGET.id,q,'تحميل شحنة سلع'); PRODUCTS=await VanCash.getProductsWithStock();
+    closeSheet('addStockSheet'); renderProductsAdmin(); await afterOperation(); flash(`تم الشحن وتحديث الأستاذ العام بـ ${q} قطعة بنجاح ✅`);
+  }catch(e){flash(e.message||'فشل تعديل حركات السلع بالقيد المزدوج',true);}
   finally { isSubmitting = false; $('#btnDoAddStock').disabled = false; }
 }
 
-function openAdj(p){STOCK_TARGET=p;$('#adjSub').textContent=`${p.name} · انظا يسجّ ¹حاس¨ياً: ${p.stock} قطعة`;$('#adjQty').value=p.stock;$('#adjMsg').textContent='';$('#adjSheet').classList.add('show');}
-function adjDiff(){const v=+($('#adjQty').value||0);const diff=v-STOCK_TARGET.stock;const m=$('#adjMsg');if($('#adjQty').value===''){m.textContent='';return;}if(diff===0){m.style.color='var(--ok)';m.textContent='¹طا¨ق لدت± اج±د ا¹اي اات±اضي تا¹اً ✅';}else if(diff>0){m.style.color='var(--ok)';m.textContent=`ائض ج±د عيني ±ا¨ح قد±ه +${diff} قطعة...`;}else{m.style.color='var(--danger)';m.textContent=`عجز ج±د عيني خاس± قد±ه ${diff} ...`;}}
+function openAdj(p){STOCK_TARGET=p;$('#adjSub').textContent=`${p.name} · النظام يسجّل محاسبياً: ${p.stock} قطعة`;$('#adjQty').value=p.stock;$('#adjMsg').textContent='';$('#adjSheet').classList.add('show');}
+function adjDiff(){const v=+($('#adjQty').value||0);const diff=v-STOCK_TARGET.stock;const m=$('#adjMsg');if($('#adjQty').value===''){m.textContent='';return;}if(diff===0){m.style.color='var(--ok)';m.textContent='مطابق لدفتر الجرد المالي الافتراضي تماماً ✅';}else if(diff>0){m.style.color='var(--ok)';m.textContent=`فائض جرد عيني رابح قدره +${diff} قطعة`;}else{m.style.color='var(--danger)';m.textContent=`عجز جرد عيني خاسر قدره ${diff} قطعة ⚠️`;}}
 async function doAdj(){
   if(isSubmitting) return;
-  const v=+($('#adjQty').value||0); if($('#adjQty').value===''){flash('اكت¨ اقي¹ة ا¹كتشة ¨اسيا±ة لج±د اعين ا¹ج±ّدة',true);return;}
+  const v=+($('#adjQty').value||0); if($('#adjQty').value===''){flash('اكتب القيمة المكتشفة بالسيارة لجرد العين المجرّدة',true);return;}
   isSubmitting = true; $('#btnDoAdj').disabled = true;
   try{
-    const r=await VanCash.adjustStock(STOCK_TARGET.id,v,'تسوية ج±د دّو±ي عيني'); PRODUCTS=await VanCash.getProductsWithStock();
-    closeSheet('adjSheet'); renderProductsAdmin(); await afterOperation(); flash(r.diff===0?'¹خزون ¹طا¨ق لح³ا¨ات ا¹ستندية انية ✅':`تّت تسوية ا±وقات ¨ادات±... ✅`);
-  }catch(e){flash(e.message||'خطأ ني ي ¨نا تسوية ا±وقات ا³لعية لج±د',true);}
+    const r=await VanCash.adjustStock(STOCK_TARGET.id,v,'تسوية جرد دوري عيني'); PRODUCTS=await VanCash.getProductsWithStock();
+    closeSheet('adjSheet'); renderProductsAdmin(); await afterOperation(); flash(r.diff===0?'مخزون مطابق للحسابات المستندية الفنية ✅':`تمت تسوية الفروقات بالكميات بواقع (${r.diff>0?'+':''}${r.diff}) بنجاح ✅`);
+  }catch(e){flash(e.message||'خطأ فني في بناء تسوية الفروقات',true);}
   finally { isSubmitting = false; $('#btnDoAdj').disabled = false; }
 }
 
@@ -1233,14 +1423,26 @@ async function renderProductsAdmin(){
   let arr=ALL_PRODUCTS.filter(p=>!q||p.name.toLowerCase().includes(q)||(p.sku||'').includes(q)||(p.barcode||'').includes(q));
   if(PROD_CAT!=='all')arr=arr.filter(p=>p.category===PROD_CAT);
   const list=$('#prodList');list.innerHTML='';
-  if(arr.length===0){list.innerHTML='<div style="text-align:center;color:var(--ink-soft);padding:40px">ا توجد ¨طاقات أµناف ¹سجة ¨ا¹±كبة</div>';}
+  if(arr.length===0){list.innerHTML='<div style="text-align:center;color:var(--ink-soft);padding:40px">لا توجد بطاقات أصناف مسجلة بالمركبة</div>';}
   else arr.forEach(p=>{
     const off=!p.active; const margin=p.price-p.cost; const el=document.createElement('div'); el.className='prow'; el.style.opacity=off?'.55':'1';
-    el.innerHTML=`<div class="pic">${esc(p.ic||'📦')}</div>
-      <div class="pi"><b>${esc(p.name)} ${off?'<span style="font-size:10px;background:var(--warn);color:#fff;padding:1px 6px;border-radius:8px">¹عطّ</span>':''}</b>
-      <span>¨يع <span class="num">${fmt(p.price)}</span> · تكة <span class="num">${fmt(p.cost)}</span> · ±¨ح اهاش <span class="num" style="color:var(--ok)">${fmt(margin)}</span> دج</span></div>
-      <div class="qcol ${p.stock<=LOW?'low':''}"><div class="n"><span class="num">${p.stock}</span></div><div class="u">قطع ¨اڤان</div></div>
-      <div class="acts"><button class="add" title="تحي شحنة ¨اڤان">＋</button><button class="adj2" title="ج±د و±ي">📦</button><button class="adj" title="تعدي ¨طاقة اµن">✎</button></div>`;
+    el.innerHTML=`
+      <div class="pic">${esc(p.ic||'📦')}</div>
+      <div class="pi">
+        <b>${esc(p.name)} ${off?'<span style="font-size:10px;background:var(--warn);color:#fff;padding:2px 6px;border-radius:8px">معطّل</span>':''}</b>
+        <span>بيع: <span class="num">${fmt(p.price)}</span> · تكلفة: <span class="num">${fmt(p.cost)}</span><br>الربح: <span class="num" style="color:var(--ok)">${fmt(margin)}</span> دج</span>
+      </div>
+      <div class="qacts">
+        <div class="qcol ${p.stock<=LOW?'low':''}">
+          <div class="n"><span class="num">${p.stock}</span></div>
+          <div class="u">في الڤان</div>
+        </div>
+        <div class="acts">
+          <button class="add" title="تحميل شحنة">＋</button>
+          <button class="adj2" title="جرد فوري">📦</button>
+          <button class="adj" title="تعديل">✎</button>
+        </div>
+      </div>`;
     el.querySelector('.add').onclick=(e)=>{e.stopPropagation();openAddStock(p);};
     el.querySelector('.adj2').onclick=(e)=>{e.stopPropagation();openAdj(p);};
     el.querySelector('.adj').onclick=(e)=>{e.stopPropagation();openProductEdit(p);};
@@ -1255,29 +1457,29 @@ async function renderProductsAdmin(){
 }
 
 function openAddProduct(){
-  EDIT_PROD=null; $('#prodEditTitle').textContent='ت¹ث¨يت µن تجا±ي جديد';
-  $('#pName').value='';$('#pPrice').value='';$('#pCost').value=''; $('#pCat').value='إلكت±ونّيات';$('#pSku').value='';$('#pBarcode').value='';$('#pQty').value='';
+  EDIT_PROD=null; $('#prodEditTitle').textContent='تثبيت صنف تجاري جديد';
+  $('#pName').value='';$('#pPrice').value='';$('#pCost').value=''; $('#pCat').value='إلكترونيات';$('#pSku').value='';$('#pBarcode').value='';$('#pQty').value='';
   $('#pQtyField').style.display='block'; $('#pToggleBtn').style.display='none'; selectIcon('📦'); $('#prodEditSheet').classList.add('show');
 }
 function openProductEdit(p){
-  EDIT_PROD=p; $('#prodEditTitle').textContent='تعدي اµن َنّياً: '+p.name;
+  EDIT_PROD=p; $('#prodEditTitle').textContent='تعديل الصنف فَنياً: '+p.name;
   $('#pName').value=p.name;$('#pPrice').value=p.price;$('#pCost').value=p.cost; $('#pCat').value=p.category;$('#pSku').value=p.sku||'';$('#pBarcode').value=p.barcode||'';
   $('#pQtyField').style.display='none'; selectIcon(p.ic||'📦'); const tb=$('#pToggleBtn'); tb.style.display='block';
-  tb.textContent = p.active?'⏸️ سح¨ وتعدي ...':'▶️ إعادة تعّي ...'; $('#prodEditSheet').classList.add('show');
+  tb.textContent = p.active?'⏸️ سحب وتعطيل المنتج من البيع الميداني':'▶️ إعادة تفعيل المنتج وعرضه بالسلة'; $('#prodEditSheet').classList.add('show');
 }
 
 async function saveProduct(){
   if(isSubmitting) return;
-  const name=$('#pName').value.trim(); if(!name){flash('اس اµن ¹طو¨ لتح ا³جات',true);return;}
-  const price=+($('#pPrice').value||0); if(price<=0){flash('اكت¨ أسعا± ¨يع تجا±ية µحيحة لتداو ا¹يداني',true);return;}
+  const name=$('#pName').value.trim(); if(!name){flash('اسم الصنف مطلوب لفتح السجلات',true);return;}
+  const price=+($('#pPrice').value||0); if(price<=0){flash('اكتب أسعار بيع تجارية صحيحة للتداول الميداني',true);return;}
   
   isSubmitting = true; $('#btnSaveProduct').disabled = true;
   const data={name,price,cost:+($('#pCost').value||0),category:$('#pCat').value,ic:PICKED_ICON,sku:$('#pSku').value.trim(),barcode:$('#pBarcode').value.trim()};
   try{
-    if(EDIT_PROD){ await VanCash.updateProduct(EDIT_PROD.id,data); flash('ت تعدي ا¨طاقة انية لµن ¨نجاح ✅'); }
-    else { data.qty=+($('#pQty').value||0); await VanCash.addProduct(data); flash('ت تح ¹ل اµن ¨ا¹خازن... ✅'); }
+    if(EDIT_PROD){ await VanCash.updateProduct(EDIT_PROD.id,data); flash('تم تعديل البطاقة الفنية للصنف بنجاح ✅'); }
+    else { data.qty=+($('#pQty').value||0); await VanCash.addProduct(data); flash('تم فتح ملف الصنف بالمخازن ورأس المال المقابل بنجاح ✅'); }
     PRODUCTS=await VanCash.getProductsWithStock(); closeSheet('prodEditSheet'); renderProductsAdmin(); await afterOperation();
-  }catch(e){flash(e.message||'خطأ ني أثناء ت±حي اµن ا¹اي لأستاذ ا¹ساعد',true);}
+  }catch(e){flash(e.message||'خطأ فني أثناء ترحيل الصنف للأستاذ المساعد',true);}
   finally { isSubmitting = false; $('#btnSaveProduct').disabled = false; }
 }
 
@@ -1285,7 +1487,7 @@ async function toggleProductActive(){
   if(!EDIT_PROD)return;
   try{
     await VanCash.setProductActive(EDIT_PROD.id, !EDIT_PROD.active); PRODUCTS=await VanCash.getProductsWithStock();
-    closeSheet('prodEditSheet'); renderProductsAdmin(); flash(EDIT_PROD.active?'ت سح¨ وتعدي ...':'تّت إعادة اµن ...');
+    closeSheet('prodEditSheet'); renderProductsAdmin(); flash(EDIT_PROD.active?'تم سحب وتعطيل المنتج بنجاح ⏸️':'تمت إعادة الصنف للبيع وتفعيله بالسلة الميدانية ▶️');
   }catch(e){flash(e.message||'خطأ',true);}
 }
 
@@ -1296,58 +1498,58 @@ async function renderSettings(){
 }
 async function updateBackupStatus(){
   const st=await VanCash.getBackupStatus(); const el=$('#backupStatus'); if(!el)return;
-  const lastTxt = st.lastExport ? new Date(st.lastExport).toLocaleString('fr-DZ',{dateStyle:'short',timeStyle:'short'}) : 'ل يت استخ±اج ¹ل خا±جي ¨عد';
-  el.innerHTML = `آخ± تµدي± أ±شة ل¹ل اعي: <b>${lastTxt}</b> · ¹ستندات غي± حوظة خا±جياً: <b style="color:var(--danger)">${st.ops} قيد</b>`;
+  const lastTxt = st.lastExport ? new Date(st.lastExport).toLocaleString('fr-DZ',{dateStyle:'short',timeStyle:'short'}) : 'لم يتم استخراج ملف خارجي بعد';
+  el.innerHTML = `آخر تصدير أرشفة للملف الفعلي: <b>${lastTxt}</b> · مستندات غير محفوظة خارجياً: <b style="color:var(--danger)">${st.ops} قيد</b>`;
 }
 
 async function saveSettings(){
   if(isSubmitting) return;
-  const name=$('#setName').value.trim(); if(!name){flash('ااس اتجا±ي لّؤسسة ¹طو¨ لط¨اعة ااتو±ة لعائك',true);return;}
+  const name=$('#setName').value.trim(); if(!name){flash('الاسم التجاري للمؤسسة مطلوب لطباعة الفواتير',true);return;}
   isSubmitting = true; $('#btnSaveSettings').disabled = true;
   try {
     await VanCash.updateCompany({name, phone:$('#setPhone').value.trim(), address:$('#setAddr').value.trim(), tax_id:$('#setTax').value.trim(), tva_rate:+($('#setTva').value||0)});
     const c=await VanCash.db.company.get(1); COMPANY={name:c.name,address:c.address,phone:c.phone||'',tax_id:c.tax_id||'',tva_rate:c.tva_rate||0};
-    flash('ت حظ ¨يانات ت±ويسة ااتو±ة وت¹ث¨يت ا¹تغي±ات ا¹حاس¨ية ¨نجاح ✅');
-  } catch(e) { flash('خطأ ¨±¹ي ي حظ اإعدادات', true); }
+    flash('تم حفظ بيانات ترويسة الفاتورة وتثبيت المتغيرات المحاسبية بنجاح ✅');
+  } catch(e) { flash('خطأ برمجي في حفظ الإعدادات', true); }
   finally { isSubmitting = false; $('#btnSaveSettings').disabled = false; }
 }
 
 function saveBackupPrefs(){
   localStorage.setItem('vc_auto_internal', $('#autoInternal').checked?'1':'0');
-  flash($('#autoInternal').checked?'نظا اأ±شة اذّاتي ...':'ت إيقاف نظا ...');
+  flash($('#autoInternal').checked?'نظام الأرشفة الذاتي والتأمين التلقائي قيد العمل حالاً ✅':'تم إيقاف نظام الإنعاش والأرشفة الذاتي');
 }
 
 async function doExport(){
   const dump=await VanCash.exportBackup(); const json=JSON.stringify(dump); const blob=new Blob([json],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
   a.download='vancash-secure-ledger-'+new Date().toISOString().slice(0,10)+'.json'; a.click();
-  await VanCash.markExported(); await updateBackupStatus(); flash('ت استخ±اج وحظ انسخة ... ✅');
+  await VanCash.markExported(); await updateBackupStatus(); flash('تم استخراج وحفظ النسخة الموحدة للدورة المالية بنجاح ✅');
 }
 
 async function doImport(ev){
   const file=ev.target.files[0]; if(!file)return;
-  if(!confirm('تن¨يه تجا±ي خطي±: سيت إحلا ا¹ل ا¹اي ... هل ترغب بالاستبدال؟')){ev.target.value='';return;}
+  if(!confirm('تنبيه تجاري خطير: سيتم إحلال الملف المالي بالكامل بدلاً من البيانات الحالية وتوليد شجرة حسابات موافقة لها. هل ترغب بالاستبدال؟')){ev.target.value='';return;}
   try{
     const dump=JSON.parse(await file.text()); await VanCash.importBackup(dump); await reloadAll();
-    flash('ت ك اتشي± واستعادة ادّو±ة ا¹ستندية ... ✅'); renderSettings();
-  }catch(e){flash('ا¹ل ا¹ختا± غي± ¹دعو¹ أو ا يطابق ا¨نية ...',true);}
+    flash('تم فك التشفير واستعادة الدورة المستندية بأمان وتأمين التطابق ✅'); renderSettings();
+  }catch(e){flash('الملف المختار غير مدعوم أو لا يطابق البنية الهندسية للبرنامج',true);}
   ev.target.value='';
 }
 
 async function openInternalBackups(){
   const list=await VanCash.listInternalBackups(); const box=$('#internalBackupList');
-  if(list.length===0){ box.innerHTML='<div style="text-align:center;color:var(--ink-soft);padding:24px">ا توجد سجلات أ±شة دّاخية ¨نظا اإنعاش ¨عد</div>'; }
+  if(list.length===0){ box.innerHTML='<div style="text-align:center;color:var(--ink-soft);padding:24px">لا توجد سجلات أرشفة داخلية بنظام الإنعاش بعد</div>'; }
   else box.innerHTML=list.map(b=>{
     const d=new Date(b.ts).toLocaleString('fr-DZ',{dateStyle:'short',timeStyle:'short'}); const kb=(b.size/1024).toFixed(1);
-    return `<div class="ev"><div class="ico" style="background:var(--brand-soft);color:var(--brand)">🗂️</div><div class="info"><b>${d}</b><span>حج القطة ا¹يدانية ا¹ؤ±شة: <span class="num">${kb}</span> ك.¨ايت</span></div><button class="btn ghost" style="width:auto;height:38px;margin:0;padding:0 14px;font-size:13px" onclick="restoreInternal(${b.id})">استعادة اح³ا¨ات</button></div>`;
+    return `<div class="ev"><div class="ico" style="background:var(--brand-soft);color:var(--brand)">🗂️</div><div class="info"><b>${d}</b><span>حجم اللقطة الميدانية المؤرشفة: <span class="num">${kb}</span> ك.بايت</span></div><button class="btn ghost" style="width:auto;height:38px;margin:0;padding:0 14px;font-size:13px" onclick="restoreInternal(${b.id})">استعادة الحسابات</button></div>`;
   }).join(''); $('#internalBackupSheet').classList.add('show');
 }
 async function restoreInternal(id){
-  if(!confirm('تأكيد است¨دا شال للدّو±ة ا¹الية وا¹خزونية ...؟'))return;
+  if(!confirm('تأكيد استبدال شامل للدورة المالية والمخزنية باللقطة المؤرشفة داخلياً؟'))return;
   try{
     await VanCash.restoreInternalBackup(id); await reloadAll(); closeSheet('internalBackupSheet');
-    flash('تّت ¨نجاح إعادة لقطة اأ±شة ... ✅');
-  }catch(e){flash(e.message||'خطأ هيكي دّاخي ¨±¹ي أثناء ا¹عالجة',true);}
+    flash('تمت بنجاح إعادة لقطة الأرشفة لملفاتك واستعادة الدفاتر للحالة السليمة ✅');
+  }catch(e){flash(e.message||'خطأ هيكلي برمجي أثناء المعالجة',true);}
 }
 
 async function reloadAll(){
@@ -1361,11 +1563,11 @@ async function afterOperation(){
     const ops=await VanCash.bumpOpCounter(); const st=await VanCash.getBackupStatus();
     const dayPassed = st.lastExport>0 && (Date.now()-st.lastExport > 86400000);
     if((ops>=20 || dayPassed) && !BACKUP_REMINDED){ BACKUP_REMINDED=true; showBackupReminder(ops); }
-  }catch(e){ console.warn('ش اأت¹تة ا¹ساعدّية ...:',e); }
+  }catch(e){ console.warn('فشل الأتمتة المساعدة للنسخ الاحتياطي التلقائي:',e); }
 }
 let BACKUP_REMINDED=false;
 function showBackupReminder(ops){
-  const t=$('#toast'); t.querySelector('div').innerHTML=`💾 تن¨يه ¹ستندي ¹اي: ت سج عدّد (${ops}) قيد ¹اي و¹خزوني دّون أ±شة ...`;
+  const t=$('#toast'); t.querySelector('div').innerHTML=`💾 تنبيه مستندي مالي: تم تسجيل عدد (${ops}) قيد مالي ومخزني دون أرشفة خارجية لملف خارجي، مستنداتك في خطر، ادخل للإعدادات للتصدير الدائم للعهدة الميدانية.`;
   t.querySelector('div').style.background='var(--warn)'; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 4800);
 }
 
@@ -1374,14 +1576,14 @@ function setExpCat(c){$('#expCat').value=c;}
 async function doExpense(){
   if(isSubmitting) return;
   const cat=$('#expCat').value.trim(); const amt=+($('#expAmount').value||0);
-  if(!cat){flash('اكت¨ ¨ند ا¹µنوف اتشيلي اعي لت¹ث¨يته ¹ستندياً',true);return;}
-  if(amt<=0){flash('أدخ اقي¹ة ا¹الية احقيقية ل¹ستند ا¹ق¨وض حَااً',true);return;}
+  if(!cat){flash('اكتب بند المصروف التشغيلي الفعلي لتثبيته مستندياً',true);return;}
+  if(amt<=0){flash('أدخل القيمة المالية الحقيقية للمستند المقبوض حالاً',true);return;}
   
   isSubmitting = true; $('#btnDoExpense').disabled = true;
   try{
     await VanCash.addExpense(cat,amt,$('#expNote').value.trim()); closeSheet('expenseSheet'); await afterOperation();
-    flash('ت تسجي وقيد ا¹ستند ا¹اي ل¹µنوف ... ✅'); refreshHome();
-  }catch(e){flash(e.message||'خطأ ¹حاس¨ي ي تويد اقيود ا¹زدوجة',true);}
+    flash('تم تسجيل وقيد السند المالي للمصروف وإنقاص الخزينة المقابلة تلقائياً بنجاح ✅'); refreshHome();
+  }catch(e){flash(e.message||'خطأ محاسبي في توليد القيود المزدوجة للمصروف العيني',true);}
   finally { isSubmitting = false; $('#btnDoExpense').disabled = false; }
 }
 
@@ -1393,57 +1595,58 @@ async function loadReport(range){
   const r=await VanCash.getSalesReport(from, now);
   let html=`
     <div class="sumrow" style="padding:0 0 10px">
-      <div class="sc"><div class="k">💰 إجاي قي¹ة ا¹¨يعات</div><div class="v"><span class="num">${fmt(r.sales)}</span> دج</div></div>
-      <div class="sc"><div class="k">📈 ا±¨ح اإجاي لت±ة</div><div class="v" style="color:var(--ok)"><span class="num">${fmt(r.profit)}</span> دج</div></div>
-      <div class="sc"><div class="k">💵 نقدية كاش ¹ق¨وضة ¨اµندوق</div><div class="v"><span class="num">${fmt(r.cashIn)}</span> دج</div></div>
-      <div class="sc danger"><div class="k">📒 دّيون جديدة ¹قيدة ¨ذَ</div><div class="v"><span class="num">${fmt(r.creditIssued)}</span> دج</div></div>
-      <div class="sc warn"><div class="k">💸 إجاي ا¹µا±يف اتشيلية</div><div class="v"><span class="num">${fmt(r.expTotal)}</span> دج</div></div>
-      <div class="sc"><div class="k">✅ µاي اأ±¨اح اتجا±ية ل¹وزّع</div><div class="v" style="color:var(--ok)"><span class="num">${fmt(r.netProfit)}</span> دج</div></div>
+      <div class="sc"><div class="k">💰 إجمالي قيمة المبيعات</div><div class="v"><span class="num">${fmt(r.sales)}</span> دج</div></div>
+      <div class="sc"><div class="k">📈 الربح الإجمالي للفترة</div><div class="v" style="color:var(--ok)"><span class="num">${fmt(r.profit)}</span> دج</div></div>
+      <div class="sc"><div class="k">💵 نقدية كاش مقبوضة بالصندوق</div><div class="v"><span class="num">${fmt(r.cashIn)}</span> دج</div></div>
+      <div class="sc danger"><div class="k">📒 ديون جديدة مقيدة بذمم</div><div class="v"><span class="num">${fmt(r.creditIssued)}</span> دج</div></div>
+      <div class="sc warn"><div class="k">💸 إجمالي المصاريف التشغيلية</div><div class="v"><span class="num">${fmt(r.expTotal)}</span> دج</div></div>
+      <div class="sc"><div class="k">✅ صافي الأرباح التجارية للموزع</div><div class="v" style="color:var(--ok)"><span class="num">${fmt(r.netProfit)}</span> دج</div></div>
     </div>
-    <div style="font-size:13px;color:var(--ink-soft);margin:6px 0 10px">إجاي ¹ستندات اتوي± اتوزيع ... <b>${r.count} اتو±ة</b></div>
-    <div style="font-size:14px;font-weight:800;margin:10px 0 8px">🏆 ا³ع وا¹نتجات اأكث± ¹¨يعاً و±واجاً ...</div>`;
-  if(r.topProducts.length===0) html+='<div style="color:var(--ink-soft);text-align:center;padding:20px">ل تسج دات± ا¹ساعد أي ح±كات ¨يع ...</div>';
+    <div style="font-size:13px;color:var(--ink-soft);margin:6px 0 10px">إجمالي مستندات فواتير التوزيع المقفلة والمرحلة للفترة: <b>${r.count} فاتورة</b></div>
+    <div style="font-size:14px;font-weight:800;margin:10px 0 8px">🏆 السلع والمنتجات الأكثر مبيعاً ورواجاً ميدانياً (الأعلى عائداً أولاً)</div>`;
+  if(r.topProducts.length===0) html+='<div style="color:var(--ink-soft);text-align:center;padding:20px">لم تسجل دفاتر المساعد أي حركات بيع خلال الفترة المطلوبة</div>';
   else r.topProducts.slice(0,10).forEach((p,i)=>{
-    html+=`<div class="ev"><div class="ico" style="background:var(--brand-soft);color:var(--brand)">${esc(p.ic)}</div><div class="info"><b>${i+1}. ${esc(p.name)}</b><span>توزيع ${p.qty} قطعة · ±¨ح ... <span class="num">${fmt(p.profit)}</span> دج</span></div><div class="amt"><span class="num">${fmt(p.revenue)}</span> دج</div></div>`;
+    html+=`<div class="ev"><div class="ico" style="background:var(--brand-soft);color:var(--brand)">${esc(p.ic)}</div><div class="info"><b>${i+1}. ${esc(p.name)}</b><span>توزيع ${p.qty} قطعة · ربح هامشي تراكمي <span class="num">${fmt(p.profit)}</span> دج</span></div><div class="amt"><span class="num">${fmt(p.revenue)}</span> دج</div></div>`;
   }); $('#reportBody').innerHTML=html;
 }
 
 async function openSettlement(){
   $('#settlementSheet').classList.add('show'); const s=await VanCash.getDailySettlement();
   $('#settlementBody').innerHTML=`
-    <div style="text-align:center;color:var(--ink-soft);font-size:13px;margin-bottom:12px">تا±يخ غق وتµية ايوية ا¹اي ل¹وزّع: ${esc(s.date)}</div>
+    <div style="text-align:center;color:var(--ink-soft);font-size:13px;margin-bottom:12px">تاريخ غلق وتصفية اليومية المالي للموزع: ${esc(s.date)}</div>
     <div class="sumrow" style="padding:0 0 12px">
-      <div class="sc"><div class="k">🧾 عدّد ااتوي± ا¹غقة</div><div class="v"><span class="num">${s.salesCount}</span></div></div>
-      <div class="sc"><div class="k">💰 قي¹ة إجاي ا¹¨يعات</div><div class="v"><span class="num">${fmt(s.sales)}</span> دج</div></div>
-      <div class="sc"><div class="k">💵 كاش ¹¨يعات اµندوق</div><div class="v"><span class="num">${fmt(s.cashSales)}</span> دج</div></div>
-      <div class="sc"><div class="k">🤝 تحµيلات ادّيون ا¹ق¨وضة</div><div class="v"><span class="num">${fmt(s.collected)}</span> دج</div></div>
-      <div class="sc danger"><div class="k">📒 دّيون جديدة ¹نشأَة ايو</div><div class="v"><span class="num">${fmt(s.creditIssued)}</span> دج</div></div>
-      <div class="sc warn"><div class="k">💸 ¹µا±يف يوية ¹قيدة</div><div class="v"><span class="num">${fmt(s.expenses)}</span> دج</div></div>
+      <div class="sc"><div class="k">🧾 عدد الفواتير المغلقة</div><div class="v"><span class="num">${s.salesCount}</span></div></div>
+      <div class="sc"><div class="k">💰 قيمة إجمالي المبيعات العامة</div><div class="v"><span class="num">${fmt(s.sales)}</span> دج</div></div>
+      <div class="sc"><div class="k">💵 كاش مبيعات الصندوق</div><div class="v"><span class="num">${fmt(s.cashSales)}</span> دج</div></div>
+      <div class="sc"><div class="k">🤝 تحصيلات الديون المقبوضة</div><div class="v"><span class="num">${fmt(s.collected)}</span> دج</div></div>
+      <div class="sc danger"><div class="k">📒 ديون جديدة منشأة اليوم</div><div class="v"><span class="num">${fmt(s.creditIssued)}</span> دج</div></div>
+      <div class="sc warn"><div class="k">💸 مصاريف يومية مقيدة حالاً</div><div class="v"><span class="num">${fmt(s.expenses)}</span> دج</div></div>
     </div>
     <div style="background:var(--brand-soft);border-radius:var(--r-md);padding:14px;text-align:center;margin-bottom:14px">
-      <div style="font-size:13px;color:var(--brand)">💼 اعهدة انقدية ا¹توقعة واواج¨ تواجدها ¨اµندوق</div>
+      <div style="font-size:13px;color:var(--brand)">💼 العهدة النقدية المتوقعة والواجب تواجدها بالصندوق الفعلي (النقد المحاسبي)</div>
       <div style="font-size:28px;font-weight:800;color:var(--brand)"><span class="num">${fmt(s.expectedCash)}</span> دج</div>
+      <div style="font-size:11px;color:var(--ink-soft);margin-top:4px">المعادلة: كاش البيع المباشر + تحصيلات المقبوض الدفترية − المصاريف الإدارية والتشغيلية</div>
     </div>
-    <div class="field"><label>أدخ انقدية اسائلة وا¹وجودة ¨يدك عياً ...</label><input id="actualCash" class="big" type="number" oninput="settleDiff(${s.expectedCash})"></div>
+    <div class="field"><label>أدخل النقدية السائلة والموجودة بيدك فعلياً الآن لمطابقتها بالنظام الحسابي المالي</label><input id="actualCash" class="big" type="number" oninput="settleDiff(${s.expectedCash})"></div>
     <div class="remain" id="settleMsg" style="margin-bottom:12px"></div>
-    <button class="btn" id="btnDoSettle" onclick="doSettle(${s.expectedCash})">✅ إغلاق وحظ اتµية ...</button>`;
+    <button class="btn" id="btnDoSettle" onclick="doSettle(${s.expectedCash})">✅ إغلاق وحفظ التصفية وترحيل اليومية للدفتر المالي النهائي</button>`;
 }
 function settleDiff(expected){
   const a=+($('#actualCash').value||0); const v=a-expected; const m=$('#settleMsg');
   if($('#actualCash').value===''){m.textContent='';return;}
-  if(v===0){m.style.color='var(--ok)';m.textContent='✅ انقدية ¹تطا¨قة تا¹اً 100% — لا يوجد عجز عهدتك سي¹ة';}
-  else if(v>0){m.style.color='var(--ok)';m.textContent=`توجد زيادة ائض ¹اي ¨اµندوق: +${fmt(v)} دج`;}
-  else{m.style.color='var(--danger)';m.textContent=`⚠️ تن¨يه عجز ¹اي ¨اخزينة واعهدة ¨قي¹ة: ${fmt(v)} دج`;}
+  if(v===0){m.style.color='var(--ok)';m.textContent='✅ النقدية متطابقة تماماً 100% — لا يوجد عجز عهدتك سليمة ونظامية';}
+  else if(v>0){m.style.color='var(--ok)';m.textContent=`توجد زيادة فائض مالي بالصندوق قدرها: +${fmt(v)} دج (سيتم ترحيل الفائض لحساب التسويات)`;}
+  else{m.style.color='var(--danger)';m.textContent=`⚠️ تنبيه عجز مالي بالخزينة والعهدة بقيمة: ${fmt(v)} دج يرجى مراجعة حزمة المصاريف وفواتير الآجل فوراً!`;}
 }
 async function doSettle(expected){
   if(isSubmitting) return;
-  const a=+($('#actualCash').value||0); if($('#actualCash').value===''){flash('ي±جى تدوين انقد اسائل ...',true);return;}
+  const a=+($('#actualCash').value||0); if($('#actualCash').value===''){flash('يرجى تدوين النقد السائل الفعلي لغلق مطابقة اليومية للموزع للمركبة',true);return;}
   
   isSubmitting = true; $('#btnDoSettle').disabled = true;
   try{
     const r=await VanCash.saveSettlement(a); closeSheet('settlementSheet'); await afterOperation();
-    flash(r.variance===0?'ت قيد وإغلاق يوية ... ✅':`ت ت±حي وغق ... ✅`);
-  }catch(e){flash(e.message||'خطأ ¹حاس¨ي أثnaء ¹حاولة غق ايوية',true);}
+    flash(r.variance===0?'تم قيد وإغلاق يومية الموزع بنجاح الصندوق مطابق ومعتمد محاسبياً بالكامل ✅':`تم ترحيل وغلق التصفية وتثبيت الفروقات المسجلة بواقع عجز/زيادة قدرها (${r.variance>0?'+':''}${fmt(r.variance)}) دج بملفات الأستاذ العام الدائمة ✅`);
+  }catch(e){flash(e.message||'خطأ محاسبي أثناء محاولة غلق السنة المالية/اليومية للڤان الموزع الميداني',true);}
   finally { isSubmitting = false; $('#btnDoSettle').disabled = false; }
 }
 
@@ -1458,15 +1661,15 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
 window.addEventListener('appinstalled', (evt) => {
   const banner = $('#pwaBanner'); if(banner) { banner.style.display = 'none'; }
-  deferredPrompt = null; flash('تهّانينا! ت تّث¨يت تط¨يق ان كاش ¨نجاح ✅');
+  deferredPrompt = null; flash('تهانينا! تم تثبيت تطبيق فان كاش بنجاح على شاشة هاتفك المحمول ✅');
 });
 
 function triggerPwaInstall() {
   if (!deferredPrompt) {
     if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.navigator.standalone) {
-      alert('لتث¨يت ان كاش على اآيون:\n1. اضغط على زر "¹سا±كة" ...');
+      alert('لتثبيت فان كاش على الآيفون:\n1. اضغط على زر "مشاركة" (Share) أسفل المتصفح بسفاري.\n2. اختر "إضافة إلى الشاشة الرئيسية" (Add to Home Screen).\n3. سيتم تثبيت التطبيق بأيقونته الرسمية الكاملة.');
     } else {
-      flash('تط¨يق ان كاش ¹ث¨ّت ¨اع أو يعل حَاياً.', false);
+      flash('تطبيق فان كاش مثبت بالفعل على هاتفك أو يعمل حالياً بالوضع الكامل Standalone.', false);
     }
     return;
   }
@@ -1483,7 +1686,7 @@ async function boot(){
     if(comp)COMPANY={name:comp.name,address:comp.address,phone:comp.phone||'',tax_id:comp.tax_id||'',tva_rate:comp.tva_rate||0};
     PRODUCTS=await VanCash.getProductsWithStock(); CUSTOMERS=await VanCash.getCustomers(); rebuildCustomerSelect();
     nav('home');
-  }catch(e){console.error(e);flash('عط ني ح±ج ¨قاعدة ا¨يانات',true);}
+  }catch(e){console.error(e);flash('عطل فني حرج بقاعدة البيانات المحلية للبرنامج',true);}
 }
 
 if ('serviceWorker' in navigator) {
