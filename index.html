@@ -199,6 +199,31 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);min-height:10
 </head>
 <body>
 
+<!-- ===== شاشة التفعيل (أول مرة) ===== -->
+<div id="activationScreen" style="display:none;position:fixed;inset:0;z-index:9000;background:var(--brand);color:var(--brand-ink);flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center">
+  <div style="width:90px;height:90px;border-radius:24px;background:var(--brand-ink);color:var(--brand);display:grid;place-items:center;font-size:40px;font-weight:800;margin-bottom:20px">VC</div>
+  <h1 style="margin:0 0 6px;font-size:26px">فان كاش</h1>
+  <p style="margin:0 0 28px;opacity:.9;font-size:15px">تفعيل التطبيق لأول مرة</p>
+  <div style="width:100%;max-width:340px;background:var(--surface);color:var(--ink);border-radius:18px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.3)">
+    <p style="margin:0 0 14px;font-size:13.5px;color:var(--ink-soft)">أدخل كود التفعيل الذي حصلت عليه عند الشراء</p>
+    <input id="actCode" type="text" placeholder="VC-XXXX-XXXX" style="width:100%;height:54px;border:1.5px solid var(--line);border-radius:14px;background:var(--surface-2);color:var(--ink);font-family:inherit;font-size:18px;text-align:center;font-weight:800;letter-spacing:1px;padding:0 14px;text-transform:uppercase" oninput="this.value=this.value.toUpperCase()">
+    <div id="actMsg" style="font-size:13px;font-weight:700;color:var(--danger);min-height:18px;margin:10px 0"></div>
+    <button onclick="checkActivation()" style="width:100%;height:54px;border:none;border-radius:14px;background:var(--brand);color:var(--brand-ink);font-family:inherit;font-size:16px;font-weight:800;cursor:pointer">🔓 تفعيل التطبيق</button>
+  </div>
+  <p style="margin-top:24px;font-size:12px;opacity:.75">للحصول على كود التفعيل، تواصل مع المورّد</p>
+</div>
+
+<!-- ===== شاشة كلمة السر ===== -->
+<div id="lockScreen" style="display:none;position:fixed;inset:0;z-index:9000;background:var(--bg);color:var(--ink);flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center">
+  <div style="width:80px;height:80px;border-radius:22px;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-size:36px;margin-bottom:18px">🔒</div>
+  <h1 style="margin:0 0 24px;font-size:22px">أدخل كلمة السر</h1>
+  <div style="width:100%;max-width:300px">
+    <input id="lockPin" type="password" inputmode="numeric" placeholder="••••" style="width:100%;height:60px;border:1.5px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);font-family:inherit;font-size:28px;text-align:center;letter-spacing:8px;padding:0 14px" onkeydown="if(event.key==='Enter')checkPin()">
+    <div id="lockMsg" style="font-size:13px;font-weight:700;color:var(--danger);min-height:18px;margin:10px 0"></div>
+    <button onclick="checkPin()" style="width:100%;height:54px;border:none;border-radius:14px;background:var(--brand);color:var(--brand-ink);font-family:inherit;font-size:16px;font-weight:800;cursor:pointer">دخول</button>
+  </div>
+</div>
+
 <header class="top">
   <div class="logo" id="topLogo">VC</div>
   <button class="back" id="topBack" onclick="goHome()">→</button>
@@ -226,14 +251,15 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);min-height:10
       <div class="stat"><div class="k">📈 ربح اليوم</div><div class="v"><span class="num" id="hProfit">0</span> <small>دج</small></div></div>
       <div class="stat full"><div><div class="k">🚚 مخزون السيارة</div><div class="v" style="font-size:17px"><span class="num" id="hStockCount">0</span> منتج · <span class="num" id="hLow">0</span> منخفض</div></div><span class="pill">قيمة <span class="num" id="hStockVal">0</span> دج</span></div>
     </div>
-    <div class="section-label">العمليات السريعة</div>
+    <div class="section-label" data-i18n="quick_ops">العمليات السريعة</div>
     <div class="grid">
-      <button class="tile sell" onclick="nav('sell')"><div class="ic">🛒</div><div class="t">بيع سريع</div></button>
-      <button class="tile collect" onclick="nav('customers')"><div class="ic">👥</div><div class="t">الزبائن والديون</div><span class="badge" id="debtBadge" style="display:none">0</span></button>
-      <button class="tile" onclick="nav('products')"><div class="ic">📦</div><div class="t">المخزون والمنتجات</div></button>
-      <button class="tile" onclick="openReports()"><div class="ic">📊</div><div class="t">التقارير</div></button>
-      <button class="tile" onclick="openSettlement()"><div class="ic">✅</div><div class="t">تصفية اليوم</div></button>
-      <button class="tile" onclick="nav('settings')"><div class="ic">⚙️</div><div class="t">الإعدادات</div></button>
+      <button class="tile sell" onclick="nav('sell')"><div class="ic">🛒</div><div class="t" data-i18n="tile_sell">بيع سريع</div></button>
+      <button class="tile collect" onclick="nav('customers')"><div class="ic">👥</div><div class="t" data-i18n="tile_customers">الزبائن والديون</div><span class="badge" id="debtBadge" style="display:none">0</span></button>
+      <button class="tile" onclick="nav('products')"><div class="ic">📦</div><div class="t" data-i18n="tile_products">المخزون والمنتجات</div></button>
+      <button class="tile" onclick="openReports()"><div class="ic">📊</div><div class="t" data-i18n="tile_reports">التقارير</div></button>
+      <button class="tile" onclick="openArchive()"><div class="ic">🧾</div><div class="t" data-i18n="tile_archive">أرشيف الفواتير</div></button>
+      <button class="tile" onclick="openSettlement()"><div class="ic">✅</div><div class="t" data-i18n="tile_settlement">تصفية اليوم</div></button>
+      <button class="tile" onclick="nav('settings')"><div class="ic">⚙️</div><div class="t" data-i18n="tile_settings">الإعدادات</div></button>
     </div>
   </div>
 </section>
@@ -272,6 +298,15 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);min-height:10
 <section class="screen" id="s-settings">
   <div class="scroll" style="padding:14px">
     <div style="background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:16px;box-shadow:var(--shadow);margin-bottom:14px">
+      <div style="font-size:14px;font-weight:800;margin-bottom:12px">🌍 <span data-i18n="language">اللغة</span></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn ghost langBtn" data-lang="ar" onclick="setLang('ar')" style="flex:1">العربية</button>
+        <button class="btn ghost langBtn" data-lang="fr" onclick="setLang('fr')" style="flex:1">Français</button>
+        <button class="btn ghost langBtn" data-lang="en" onclick="setLang('en')" style="flex:1">English</button>
+      </div>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:16px;box-shadow:var(--shadow);margin-bottom:14px">
       <div style="font-size:14px;font-weight:800;margin-bottom:14px">🏢 بيانات الشركة (تظهر على الفاتورة)</div>
       <div class="field"><label>اسم المحل / الشركة</label><input id="setName" placeholder="فان كاش"></div>
       <div class="field"><label>الهاتف</label><input id="setPhone" type="tel" placeholder="05…"></div>
@@ -297,15 +332,46 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);min-height:10
       <button class="btn ghost" onclick="openInternalBackups()">🗂️ النسخ الداخلية المحفوظة</button>
     </div>
 
-    <div style="background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:16px;box-shadow:var(--shadow)">
-      <div style="font-size:14px;font-weight:800;margin-bottom:6px">💸 المصاريف النقدية الميدانية</div>
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:16px;box-shadow:var(--shadow);margin-bottom:14px">
+      <div style="font-size:14px;font-weight:800;margin-bottom:10px">🔒 <span data-i18n="security">الأمان والخصوصية</span></div>
+      <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;margin-bottom:14px">
+        <span style="font-size:13.5px;font-weight:700">📈 <span data-i18n="show_profit">إظهار الربح في شاشة البيع</span></span>
+        <input type="checkbox" id="showProfitToggle" style="width:22px;height:22px" onchange="toggleShowProfit()">
+      </label>
+      <div class="sub" style="margin-bottom:12px">عند الإيقاف، لا يظهر الربح أمام الزبون في السلة.</div>
+      <div style="border-top:1px dashed var(--line);margin:6px 0 14px"></div>
+      <div id="pinStatus" class="sub" style="margin-bottom:10px">—</div>
+      <button class="btn ghost" onclick="openPinSet()" id="pinBtn">🔑 تعيين كلمة سر للتطبيق</button>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:16px;box-shadow:var(--shadow);margin-bottom:14px">
+      <div style="font-size:14px;font-weight:800;margin-bottom:6px">💸 <span data-i18n="expenses">المصاريف</span></div>
       <button class="btn alt" onclick="openExpense()">➕ تسجيل مصروف جديد</button>
+    </div>
+
+    <div style="background:var(--surface);border:1.5px solid var(--danger);border-radius:var(--r-md);padding:16px;box-shadow:var(--shadow)">
+      <div style="font-size:14px;font-weight:800;margin-bottom:6px;color:var(--danger)">⚠️ <span data-i18n="danger_zone">منطقة الخطر</span></div>
+      <div class="sub" style="margin-bottom:12px">إجراءات لا يمكن التراجع عنها. أنشئ نسخة احتياطية أولًا.</div>
+      <button class="btn ghost" style="border-color:var(--danger);color:var(--danger)" onclick="doClearProducts()">🗑️ <span data-i18n="clear_products">تفريغ كل المنتجات والمخزون</span></button>
+      <button class="btn ghost" style="border-color:var(--danger);color:var(--danger);margin-top:10px" onclick="doFactoryReset()">💣 <span data-i18n="factory_reset">تصفير شامل (بدء من الصفر)</span></button>
     </div>
   </div>
 </section>
 
 <button class="fab-global" id="addCustFab" onclick="openAddCust()">➕</button>
 <button class="fab-global" id="addProdFab" onclick="openAddProduct()">➕</button>
+
+<!-- ===== تعيين/تغيير كلمة السر ===== -->
+<div class="sheet" id="pinSetSheet">
+  <div class="sheet-box">
+    <h2>🔑 كلمة سر التطبيق <button class="x" onclick="closeSheet('pinSetSheet')">✕</button></h2>
+    <div class="sub">كلمة سر تُطلب عند فتح التطبيق (أرقام فقط، 4 أو أكثر). اتركها فارغة وامسح للإلغاء.</div>
+    <div class="field"><label>كلمة السر الجديدة</label><input id="newPin" type="password" inputmode="numeric" class="big" placeholder="••••"></div>
+    <div class="field"><label>تأكيد كلمة السر</label><input id="newPin2" type="password" inputmode="numeric" class="big" placeholder="••••"></div>
+    <button class="btn" onclick="savePin()">💾 حفظ كلمة السر</button>
+    <button class="btn ghost" id="removePinBtn" style="display:none;margin-top:10px" onclick="removePin()">🗑️ إلغاء كلمة السر</button>
+  </div>
+</div>
 
 <div class="cart-backdrop" id="cartBackdrop" onclick="toggleCart()"></div>
 <section class="cart" id="cart">
@@ -379,6 +445,28 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);min-height:10
     <div style="display:flex;gap:10px">
       <button class="btn ghost" style="flex:0 0 auto;width:110px;margin:0" onclick="resetLinePrice()">↺ السعر الأصلي</button>
       <button class="btn" style="flex:1;margin:0" onclick="saveLineEdit()">✅ تطبيق التعديل</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== خصم عام على السلة ===== -->
+<div class="sheet" id="cartDiscSheet">
+  <div class="sheet-box">
+    <h2>🏷️ خصم عام على الفاتورة <button class="x" onclick="closeSheet('cartDiscSheet')">✕</button></h2>
+    <div class="sub" id="cartDiscSub"></div>
+    <div class="field"><label>نسبة الخصم السريع %</label>
+      <div class="quick" style="margin-bottom:10px">
+        <button onclick="applyCartDiscPct(5)">5%</button>
+        <button onclick="applyCartDiscPct(10)">10%</button>
+        <button onclick="applyCartDiscPct(15)">15%</button>
+        <button onclick="applyCartDiscPct(20)">20%</button>
+      </div>
+      <input id="cartDiscPct" type="number" placeholder="نسبة مخصّصة %" oninput="applyCartDiscPct(+this.value||0)">
+    </div>
+    <div class="field"><label>مبلغ الخصم (دج)</label><input id="cartDiscAmount" class="big" type="number" placeholder="0"></div>
+    <div style="display:flex;gap:10px">
+      <button class="btn ghost" style="flex:0 0 auto;width:110px;margin:0" onclick="setCartDiscount(0)">إلغاء الخصم</button>
+      <button class="btn" style="flex:1;margin:0" onclick="saveCartDiscount()">✅ تطبيق</button>
     </div>
   </div>
 </div>
@@ -466,6 +554,32 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);min-height:10
   <div class="sheet-box" style="max-height:94dvh">
     <h2>✅ مطابقة وتصفية اليومية المقفلة <button class="x" onclick="closeSheet('settlementSheet')">✕</button></h2>
     <div id="settlementBody"></div>
+  </div>
+</div>
+
+<!-- ===== أرشيف الفواتير ===== -->
+<div class="sheet" id="archiveSheet">
+  <div class="sheet-box" style="max-height:94dvh">
+    <h2>🧾 أرشيف الفواتير <button class="x" onclick="closeSheet('archiveSheet')">✕</button></h2>
+    <div class="searchbar" style="padding:0 0 10px"><input id="qarch" type="search" placeholder="🔍 ابحث برقم الفاتورة أو اسم الزبون…" oninput="renderArchive()"></div>
+    <div id="archiveList"></div>
+  </div>
+</div>
+
+<!-- ===== عرض/إعادة طباعة فاتورة من الأرشيف ===== -->
+<div class="sheet" id="archInvSheet">
+  <div class="sheet-box" style="max-height:94dvh">
+    <h2>🧾 فاتورة <span class="num" id="archInvNo"></span> <button class="x" onclick="closeSheet('archInvSheet')">✕</button></h2>
+    <div id="archInvCanvasWrap" style="background:#fff;border-radius:12px;padding:10px;display:flex;justify-content:center;overflow:auto;border:1px solid var(--line)"><canvas id="archInvCanvas" style="max-width:100%;height:auto"></canvas></div>
+    <div style="display:flex;gap:10px;margin-top:14px">
+      <button class="btn" style="flex:1;margin:0" onclick="reprintArchived()">🖨️ إعادة الطباعة</button>
+      <button class="btn alt" style="flex:0 0 auto;width:56px;margin:0" onclick="reshareArchived()">📤</button>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:10px">
+      <button class="btn ghost" id="ap58" style="flex:1;margin:0" onclick="archSetPaper(58)">58mm</button>
+      <button class="btn ghost" id="ap80" style="flex:1;margin:0" onclick="archSetPaper(80)">80mm</button>
+    </div>
+    <div class="remain" id="archPrintMsg" style="margin-top:8px"></div>
   </div>
 </div>
 
@@ -568,43 +682,20 @@ const SEED_ACCOUNTS = [
 ];
 
 async function seedIfEmpty(){
-  const count = await db.products.count();
-  if(count>0) return;
+  const exists = await db.company.get(1);
+  if(exists) return;   // مُهيّأ مسبقًا
 
-  await db.transaction('rw', db.company, db.products, db.stock, db.accounts, db.customers, db.counters, db.journal, db.journal_lines, async ()=>{
+  await db.transaction('rw', db.company, db.accounts, db.counters, async ()=>{
+    // إعدادات الشركة فقط
     await db.company.put({
-      id:1, name:'فان كاش', tax_id:'', address:'الجزائر', currency:'دج', tva_rate:0, logo:'', theme:'day'
+      id:1, name:'فان كاش', tax_id:'', address:'', phone:'', currency:'دج', tva_rate:0, logo:'', theme:'day'
     });
-
-    let totalCostValuation = 0;
-    const ts = Date.now();
-    const entryId = uid('je_');
-
-    await db.journal.add({
-      id: entryId, date: new Date(ts).toISOString().slice(0,10), ref_type: 'init', ref_id: 'seed', memo: 'تثبيت الأرصدة الافتتاحية للمخزون بالمركبة', ts
-    });
-
-    for(const p of SEED_PRODUCTS){
-      const id = uid('p_');
-      await db.products.put({
-        id, sku:p.sku, barcode:p.barcode, name:p.name, category:p.category, ic:p.ic, price:p.price, cost:p.cost, active:1
-      });
-      await db.stock.put({product_id:id, qty:p.qty});
-      totalCostValuation += (p.cost * p.qty);
-    }
-
-    await db.journal_lines.add({entry_id:entryId, account_id:'1200', debit:totalCostValuation, credit:0});
-    await db.journal_lines.add({entry_id:entryId, account_id:'3000', debit:0, credit:totalCostValuation});
+    // دليل الحسابات المحاسبي (ضروري للقيد المزدوج)
     await db.accounts.bulkPut(SEED_ACCOUNTS);
-
-    await db.customers.bulkPut([
-      {id:uid('c_'), name:'محل الأمين',    phone:'0550000001', balance:0},
-      {id:uid('c_'), name:'سوبيرات النور', phone:'0550000002', balance:0},
-      {id:uid('c_'), name:'كشك بلال',      phone:'0550000003', balance:0},
-    ]);
-
+    // عدّادات الترقيم
     await db.counters.bulkPut([{key:'invoice', value:0}, {key:'receipt', value:0}]);
   });
+  // ملاحظة: لا منتجات ولا زبائن افتراضية — يبدأ المستخدم بقائمة فارغة
 }
 
 async function nextNumber(key, prefix){
@@ -637,7 +728,7 @@ async function recordSale(o){
     const invId  = uid('inv_');
     const ts     = Date.now();
     await db.invoices.put({
-      id:invId, number, customer_id:o.customer_id, type:o.type, subtotal, tva, total, paid, due, status: due>0 ? 'unpaid' : 'paid', ts
+      id:invId, number, customer_id:o.customer_id, type:o.type, subtotal, discount:o.discount||0, tva, total, paid, due, status: due>0 ? 'unpaid' : 'paid', ts
     });
 
     for(const l of o.lines){
@@ -909,6 +1000,35 @@ async function updateCompany(patch){
   return db.company.get(1);
 }
 
+/* ============================================================
+   أرشيف الفواتير — جلب القائمة وإعادة بناء فاتورة كاملة
+   ============================================================ */
+async function getInvoices(limit=200){
+  const invs = await db.invoices.orderBy('ts').reverse().limit(limit).toArray();
+  // أسماء الزبائن
+  const custs = await db.customers.toArray();
+  const cm = Object.fromEntries(custs.map(c=>[c.id, c.name]));
+  return invs.map(i=>({
+    ...i,
+    customerName: i.customer_id==='cash' ? 'زبون عابر' : (cm[i.customer_id]||'زبون')
+  }));
+}
+async function getInvoiceFull(invId){
+  const inv = await db.invoices.get(invId);
+  if(!inv) throw new Error('الفاتورة غير موجودة');
+  const lines = await db.invoice_lines.where('invoice_id').equals(invId).toArray();
+  const custs = await db.customers.toArray();
+  const cm = Object.fromEntries(custs.map(c=>[c.id, c.name]));
+  return {
+    number: inv.number, ts: inv.ts,
+    customerName: inv.customer_id==='cash' ? 'زبون عابر' : (cm[inv.customer_id]||'زبون'),
+    type: inv.type,
+    lines: lines.map(l=>({name:l.productName||l.name||'منتج', qty:l.qty, price:l.price})),
+    subtotal: inv.subtotal, discount: inv.discount||0, tva: inv.tva||0,
+    total: inv.total, paid: inv.paid, due: inv.due
+  };
+}
+
 async function exportBackup(){
   const tables=['company','products','stock','stock_moves','customers','invoices','invoice_lines','receipts','receipt_alloc','accounts','journal','journal_lines','expenses','settlements','audit','counters'];
   const dump={_v:1, _at:Date.now()};
@@ -973,6 +1093,27 @@ async function markExported(){
   await db.counters.put({key:'last_export_ts', value:Date.now()});
 }
 
+/* تصفير كامل للمنتجات والمخزون (لإزالة البيانات التجريبية) — يُبقي الزبائن والفواتير */
+async function clearAllProducts(){
+  await db.transaction('rw', db.products, db.stock, db.stock_moves, async ()=>{
+    await db.products.clear();
+    await db.stock.clear();
+    await db.stock_moves.clear();
+  });
+  return true;
+}
+/* تصفير شامل لكل شيء والبدء من الصفر (حذر: يمسح كل البيانات) */
+async function factoryReset(){
+  const tables=['products','stock','stock_moves','customers','invoices','invoice_lines','receipts','receipt_alloc','journal','journal_lines','expenses','settlements','audit','backups'];
+  await db.transaction('rw', tables.map(t=>db[t]), async ()=>{
+    for(const t of tables){ await db[t].clear(); }
+  });
+  // إعادة تصفير العدّادات
+  await db.counters.put({key:'invoice', value:0});
+  await db.counters.put({key:'receipt', value:0});
+  return true;
+}
+
 async function initDB(){
   await db.open();
   await seedIfEmpty();
@@ -980,7 +1121,7 @@ async function initDB(){
 }
 
 window.VanCash = {
-  db, initDB, recordSale, getProductsWithStock, getCustomers, nextNumber, uid, recordReceipt, getCustomerStatement, adjustStock, addStock, getStockValuation, addProduct, updateProduct, setProductActive, getAllProductsWithStock, getSalesReport, addExpense, getDailySettlement, saveSettlement, updateCompany, exportBackup, importBackup, autoBackupInternal, listInternalBackups, restoreInternalBackup, bumpOpCounter, getBackupStatus, markExported
+  db, initDB, recordSale, getProductsWithStock, getCustomers, nextNumber, uid, recordReceipt, getCustomerStatement, adjustStock, addStock, getStockValuation, addProduct, updateProduct, setProductActive, getAllProductsWithStock, getSalesReport, addExpense, getDailySettlement, saveSettlement, updateCompany, exportBackup, importBackup, autoBackupInternal, listInternalBackups, restoreInternalBackup, bumpOpCounter, getBackupStatus, markExported, getInvoices, getInvoiceFull, clearAllProducts, factoryReset
 };
 </script>
 
@@ -1042,26 +1183,46 @@ const VCPrint = (function(){
     row2('نوع الدفع:', typeTxt, 20);
     sep();
 
-    ctx.font = 'bold 20px "Segoe UI", Tahoma, Arial';
-    ctx.textAlign='right'; ctx.fillText('المنتج', R, y);
-    ctx.textAlign='center'; ctx.fillText('كمية', center+40, y);
-    ctx.textAlign='left'; ctx.fillText('المجموع', L, y);
+    // ===== أعمدة الفاتورة (مواضع ثابتة من الحواف لمنع التداخل) =====
+    // التخطيط (RTL): [المنتج يمينًا] [السعر] [كمية] [المجموع يسارًا]
+    const colTotalC = L + W*0.11;  // مركز المجموع (يسار)
+    const colQtyC   = L + W*0.28;  // مركز الكمية
+    const colPriceC = L + W*0.45;  // مركز السعر
+    const nameRight = R;           // الاسم: محاذاة يمين
+    const nameLeftLimit = colPriceC + W*0.13; // حدّ الاسم الأيسر (هامش أمان عن السعر)
+    const numFont = '18px "Segoe UI", Tahoma, Arial'; // خط الأرقام (مضغوط قليلًا)
+
+    // رؤوس الأعمدة
+    ctx.font = 'bold 17px "Segoe UI", Tahoma, Arial';
+    ctx.textAlign='right';  ctx.fillText('المنتج', nameRight, y);
+    ctx.textAlign='center'; ctx.fillText('السعر', colPriceC, y);
+    ctx.textAlign='center'; ctx.fillText('كمية', colQtyC, y);
+    ctx.textAlign='center'; ctx.fillText('المجموع', colTotalC, y);
     y += 26; sep();
 
     inv.lines.forEach(l=>{
-      ctx.font = '21px "Segoe UI", Tahoma, Arial';
-      ctx.textAlign='right';
-      let nameTxt = l.name || l.productName || '';
-      if(nameTxt.length > 17) nameTxt = nameTxt.slice(0, 15) + '..';
-      ctx.fillText(nameTxt, R, y);
+      // قصّ الاسم بالبكسل ليبقى ضمن مساحته (من اليمين حتى عمود السعر)
+      const maxNameW = nameRight - nameLeftLimit;
+      const fullName = l.name || l.productName || '';
+      let nameTxt = fullName;
+      ctx.font = '19px "Segoe UI", Tahoma, Arial';
+      while(nameTxt.length>3 && ctx.measureText(nameTxt).width > maxNameW){
+        nameTxt = nameTxt.slice(0, -1);
+      }
+      if(nameTxt !== fullName) nameTxt = nameTxt.slice(0,-1) + '…';
 
-      ctx.textAlign='center'; ctx.fillText(String(l.qty), center+40, y);
-      ctx.textAlign='left';   ctx.fillText(fmt(l.price*l.qty), L, y);
+      ctx.font = '19px "Segoe UI", Tahoma, Arial';
+      ctx.textAlign='right';  ctx.fillText(nameTxt, nameRight, y);
+      ctx.font = numFont;
+      ctx.textAlign='center'; ctx.fillText(fmt(l.price), colPriceC, y);         // سعر الوحدة
+      ctx.textAlign='center'; ctx.fillText(String(l.qty), colQtyC, y);          // الكمية
+      ctx.textAlign='center'; ctx.fillText(fmt(l.price*l.qty), colTotalC, y);   // المجموع
       y += lineH;
     });
     sep();
 
     row2('المجموع الفرعي:', fmt(inv.subtotal)+' دج', 22);
+    if(inv.discount>0) row2('الخصم العام:', '- '+fmt(inv.discount)+' دج', 21);
     if(inv.tva>0) row2('TVA:', fmt(inv.tva)+' دج', 20);
     row2('الإجمالي العام:', fmt(inv.total)+' دج', 28, true);
     row2('المدفوع حالاً:', fmt(inv.paid)+' دج', 22);
@@ -1184,14 +1345,136 @@ try{
   }
 }catch(e){}
 
-const TITLES={home:['فان كاش','مبيعاتك المتنقّلة'],sell:['بيع سريع','اختر المنتجات'],customers:['الزبائن والتحصيل','إدارة الديون'],products:['المخزون والمنتجات','إضافة وتعديل وتحميل'],settings:['الإعدادات والمزيد','الشركة · نسخ · مصاريف']};
+/* ============================================================
+   نظام اللغات: عربي / فرنسي / إنجليزي
+   ============================================================ */
+const I18N = {
+  ar: {
+    dir:'rtl',
+    // التنقّل
+    nav_home:'الرئيسية', nav_sell:'بيع', nav_customers:'الزبائن', nav_products:'المنتجات', nav_more:'المزيد',
+    // عناوين الشاشات
+    t_home:'فان كاش', t_home_sub:'مبيعاتك المتنقّلة',
+    t_sell:'بيع سريع', t_sell_sub:'اختر المنتجات',
+    t_customers:'الزبائن والتحصيل', t_customers_sub:'إدارة الديون',
+    t_products:'المخزون والمنتجات', t_products_sub:'إضافة وتعديل وتحميل',
+    t_settings:'الإعدادات والمزيد', t_settings_sub:'الشركة · نسخ · مصاريف',
+    // الرئيسية
+    h_today_sales:'مبيعات اليوم', h_today_profit:'ربح اليوم', h_stock_value:'قيمة المخزون', h_debts:'ديون الزبائن',
+    tile_sell:'بيع جديد', tile_products:'المخزون والمنتجات', tile_customers:'الزبائن', tile_reports:'التقارير',
+    tile_settlement:'تصفية اليوم', tile_settings:'الإعدادات', tile_archive:'أرشيف الفواتير', tile_expense:'مصروف', quick_ops:'العمليات السريعة',
+    // السلة والبيع
+    cart_empty:'السلة فارغة — اختر منتجات لبدء البيع', subtotal:'المجموع الفرعي', total:'الإجمالي', grand_total:'الإجمالي النهائي المستحق',
+    discount:'خصم عام', net_profit:'صافي الربح المتوقع', add_discount:'إضافة خصم عام على الفاتورة', edit_discount:'تعديل الخصم العام',
+    pay:'الدفع', pay_cash:'نقدي', pay_credit:'آجل', pay_partial:'دفع جزئي', confirm_sale:'تأكيد البيع',
+    qty:'كمية', price:'السعر', product:'المنتج', sum:'المجموع', search_product:'ابحث عن منتج…',
+    // الزبائن
+    add_customer:'إضافة زبون', collect:'تحصيل', statement:'كشف حساب', balance:'الرصيد', no_customers:'لا يوجد زبائن بعد',
+    // المنتجات
+    add_product:'إضافة منتج', total_products:'إجمالي المنتجات', disabled:'معطّلة', load_stock:'تحميل', stock_count:'جرد', edit:'تعديل', stock:'مخزون',
+    // الإعدادات
+    company_data:'بيانات الشركة', company_name:'اسم المحل / الشركة', phone:'الهاتف', address:'العنوان', tax_id:'الرقم الجبائي',
+    save:'حفظ', backup:'النسخ الاحتياطي', export_backup:'تصدير نسخة احتياطية', import_backup:'استعادة من ملف',
+    security:'الأمان والخصوصية', show_profit:'إظهار الربح في شاشة البيع', set_pin:'تعيين كلمة سر للتطبيق', change_pin:'تغيير كلمة السر',
+    expenses:'المصاريف', add_expense:'تسجيل مصروف جديد', danger_zone:'منطقة الخطر',
+    clear_products:'تفريغ كل المنتجات والمخزون', factory_reset:'تصفير شامل (بدء من الصفر)',
+    language:'اللغة', lang_ar:'العربية', lang_fr:'Français', lang_en:'English',
+    // عام
+    cancel:'إلغاء', confirm:'تأكيد', close:'إغلاق', save_btn:'حفظ', print:'طباعة', reprint:'إعادة طباعة',
+    reports:'التقارير', today:'اليوم', week:'7 أيام', month:'الشهر', settlement:'تصفية اليوم',
+  },
+  fr: {
+    dir:'ltr',
+    nav_home:'Accueil', nav_sell:'Vente', nav_customers:'Clients', nav_products:'Produits', nav_more:'Plus',
+    t_home:'VanCash', t_home_sub:'Ventes mobiles',
+    t_sell:'Vente rapide', t_sell_sub:'Choisir les produits',
+    t_customers:'Clients & Encaissement', t_customers_sub:'Gestion des dettes',
+    t_products:'Stock & Produits', t_products_sub:'Ajouter, modifier, charger',
+    t_settings:'Paramètres', t_settings_sub:'Société · Sauvegarde · Frais',
+    h_today_sales:'Ventes du jour', h_today_profit:'Profit du jour', h_stock_value:'Valeur du stock', h_debts:'Dettes clients',
+    tile_sell:'Nouvelle vente', tile_products:'Stock & Produits', tile_customers:'Clients', tile_reports:'Rapports',
+    tile_settlement:'Clôture du jour', tile_settings:'Paramètres', tile_archive:'Archive des factures', tile_expense:'Frais', quick_ops:'Opérations rapides',
+    cart_empty:'Panier vide — choisissez des produits', subtotal:'Sous-total', total:'Total', grand_total:'Total à payer',
+    discount:'Remise', net_profit:'Profit net estimé', add_discount:'Ajouter une remise', edit_discount:'Modifier la remise',
+    pay:'Paiement', pay_cash:'Espèces', pay_credit:'Crédit', pay_partial:'Paiement partiel', confirm_sale:'Confirmer la vente',
+    qty:'Qté', price:'Prix', product:'Produit', sum:'Total', search_product:'Rechercher un produit…',
+    add_customer:'Ajouter client', collect:'Encaisser', statement:'Relevé', balance:'Solde', no_customers:'Aucun client',
+    add_product:'Ajouter produit', total_products:'Total produits', disabled:'Désactivés', load_stock:'Charger', stock_count:'Inventaire', edit:'Modifier', stock:'Stock',
+    company_data:'Données société', company_name:'Nom du magasin', phone:'Téléphone', address:'Adresse', tax_id:'N° fiscal',
+    save:'Enregistrer', backup:'Sauvegarde', export_backup:'Exporter une sauvegarde', import_backup:'Restaurer un fichier',
+    security:'Sécurité', show_profit:'Afficher le profit en vente', set_pin:'Définir un mot de passe', change_pin:'Changer le mot de passe',
+    expenses:'Frais', add_expense:'Ajouter un frais', danger_zone:'Zone de danger',
+    clear_products:'Vider produits et stock', factory_reset:'Réinitialisation totale',
+    language:'Langue', lang_ar:'العربية', lang_fr:'Français', lang_en:'English',
+    cancel:'Annuler', confirm:'Confirmer', close:'Fermer', save_btn:'Enregistrer', print:'Imprimer', reprint:'Réimprimer',
+    reports:'Rapports', today:"Aujourd'hui", week:'7 jours', month:'Mois', settlement:'Clôture',
+  },
+  en: {
+    dir:'ltr',
+    nav_home:'Home', nav_sell:'Sell', nav_customers:'Customers', nav_products:'Products', nav_more:'More',
+    t_home:'VanCash', t_home_sub:'Mobile sales',
+    t_sell:'Quick Sale', t_sell_sub:'Choose products',
+    t_customers:'Customers & Collection', t_customers_sub:'Debt management',
+    t_products:'Stock & Products', t_products_sub:'Add, edit, load',
+    t_settings:'Settings', t_settings_sub:'Company · Backup · Expenses',
+    h_today_sales:'Today Sales', h_today_profit:'Today Profit', h_stock_value:'Stock Value', h_debts:'Customer Debts',
+    tile_sell:'New Sale', tile_products:'Stock & Products', tile_customers:'Customers', tile_reports:'Reports',
+    tile_settlement:'Daily Close', tile_settings:'Settings', tile_archive:'Invoice Archive', tile_expense:'Expense', quick_ops:'Quick Operations',
+    cart_empty:'Cart is empty — choose products', subtotal:'Subtotal', total:'Total', grand_total:'Total Due',
+    discount:'Discount', net_profit:'Estimated Net Profit', add_discount:'Add a discount', edit_discount:'Edit discount',
+    pay:'Payment', pay_cash:'Cash', pay_credit:'Credit', pay_partial:'Partial payment', confirm_sale:'Confirm Sale',
+    qty:'Qty', price:'Price', product:'Product', sum:'Total', search_product:'Search a product…',
+    add_customer:'Add customer', collect:'Collect', statement:'Statement', balance:'Balance', no_customers:'No customers yet',
+    add_product:'Add product', total_products:'Total products', disabled:'Disabled', load_stock:'Load', stock_count:'Count', edit:'Edit', stock:'Stock',
+    company_data:'Company data', company_name:'Shop / Company name', phone:'Phone', address:'Address', tax_id:'Tax ID',
+    save:'Save', backup:'Backup', export_backup:'Export a backup', import_backup:'Restore from file',
+    security:'Security', show_profit:'Show profit in sell screen', set_pin:'Set app password', change_pin:'Change password',
+    expenses:'Expenses', add_expense:'Add an expense', danger_zone:'Danger Zone',
+    clear_products:'Clear all products and stock', factory_reset:'Factory reset (start fresh)',
+    language:'Language', lang_ar:'العربية', lang_fr:'Français', lang_en:'English',
+    cancel:'Cancel', confirm:'Confirm', close:'Close', save_btn:'Save', print:'Print', reprint:'Reprint',
+    reports:'Reports', today:'Today', week:'7 days', month:'Month', settlement:'Close',
+  }
+};
+let LANG = localStorage.getItem('vc_lang') || 'ar';
+function tr(key){ return (I18N[LANG] && I18N[LANG][key]) || (I18N.ar[key]) || key; }
+function applyLang(lang){
+  LANG = lang;
+  localStorage.setItem('vc_lang', lang);
+  const dir = I18N[lang].dir;
+  document.documentElement.setAttribute('lang', lang);
+  document.documentElement.setAttribute('dir', dir);
+  // طبّق على كل عنصر يحمل data-i18n
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    el.textContent = tr(key);
+  });
+  // placeholders
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    el.setAttribute('placeholder', tr(el.getAttribute('data-i18n-ph')));
+  });
+  // حدّث TITLES والتنقّل
+  refreshNavLabels();
+  // أعد رسم الشاشة الحالية إن لزم
+  const cur=document.querySelector('.nav button.active')?.dataset.nav;
+  if(cur) nav(cur);
+}
+function refreshNavLabels(){
+  const map={home:'nav_home',sell:'nav_sell',customers:'nav_customers',products:'nav_products',settings:'nav_more'};
+  document.querySelectorAll('.nav button').forEach(b=>{
+    const k=map[b.dataset.nav];
+    if(k){ const span=b.querySelector('.ni'); const ico=span?span.outerHTML:''; b.innerHTML=ico+tr(k); }
+  });
+}
+function setLang(lang){ applyLang(lang); flash('✓ '+tr('language')+': '+tr('lang_'+lang)); }
+
+
 function nav(screen){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   $('#s-'+screen).classList.add('active');
   document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.nav===screen));
-  const [t,sub]=TITLES[screen]||TITLES.home;
-  $('#topTitle').childNodes[0].nodeValue=t;
-  $('#topSub').textContent=sub;
+  $('#topTitle').childNodes[0].nodeValue = tr('t_'+screen) || tr('t_home');
+  $('#topSub').textContent = tr('t_'+screen+'_sub') || '';
   $('#topBack').style.display = screen==='home'?'none':'block';
   $('#topLogo').style.display = screen==='home'?'grid':'none';
   $('#cart').classList.toggle('visible', screen==='sell');
@@ -1262,15 +1545,23 @@ function setQty(id,delta){
   refreshCart();
 }
 
-function cartTotals(){let sub=0,profit=0,n=0;for(const id in cart){const p=PRODUCTS.find(x=>x.id==id),it=cart[id];sub+=it.price*it.qty;profit+=(it.price-p.cost)*it.qty;n+=it.qty;}return{sub,profit,n};}
+let CART_DISCOUNT=0; // خصم عام على السلة (مبلغ بالدينار)
+function cartTotals(){
+  let sub=0,profit=0,n=0;
+  for(const id in cart){const p=PRODUCTS.find(x=>x.id==id),it=cart[id];sub+=it.price*it.qty;profit+=(it.price-p.cost)*it.qty;n+=it.qty;}
+  const disc=Math.min(CART_DISCOUNT, sub);   // لا يتجاوز الخصم المجموع
+  const grand=sub-disc;
+  const netProfit=profit-disc;               // الخصم ينقص الربح
+  return {sub, profit:netProfit, n, disc, grand};
+}
 
 function refreshCart(){
   renderProducts();
-  const {sub,profit,n}=cartTotals();
-  $('#count').textContent=n; $('#peekTotal').textContent=fmt(sub);
-  $('#payBtn').disabled=n===0; $('#confirmTotal').textContent=fmt(sub);
+  const {sub,profit,n,disc,grand}=cartTotals();
+  $('#count').textContent=n; $('#peekTotal').textContent=fmt(grand);
+  $('#payBtn').disabled=n===0; $('#confirmTotal').textContent=fmt(grand);
   const body=$('#cartBody');
-  if(n===0){body.innerHTML='<div class="cart-empty"><div class="e">🛒</div>السلة فارغة — اختر منتجات لبدء البيع الميداني</div>';return;}
+  if(n===0){ CART_DISCOUNT=0; body.innerHTML='<div class="cart-empty"><div class="e">🛒</div>السلة فارغة — اختر منتجات لبدء البيع الميداني</div>';return;}
   let html='';
   for(const id in cart){
     const p=PRODUCTS.find(x=>x.id==id),it=cart[id];
@@ -1280,8 +1571,38 @@ function refreshCart(){
       : `<span class="num">${fmt(it.price)}</span> دج × ${it.qty}`;
     html+=`<div class="line"><div class="li" onclick="openLineEdit('${id}')" style="cursor:pointer">${esc(p.ic||'📦')}</div><div class="ln" onclick="openLineEdit('${id}')" style="cursor:pointer"><b>${esc(p.name)} ${discounted?'🏷️':'<span style="font-size:11px;color:var(--ink-soft)">✎</span>'}</b><span>${priceLabel}</span></div><div class="stepper"><button class="minus" onclick="setQty('${id}',-1)">−</button><span class="q">${it.qty}</span><button class="plus" onclick="setQty('${id}',1)">+</button></div><div class="lt"><span class="num">${fmt(it.price*it.qty)}</span> دج</div></div>`;
   }
-  html+=`<div class="totals"><div class="trow"><span>المجموع الفرعي</span><span><span class="num">${fmt(sub)}</span> دج</span></div><div class="trow profit"><span>صافي الربح المتوقع للفاتورة 📈</span><span><span class="num">${fmt(profit)}</span> دج</span></div><div class="trow grand"><span>الإجمالي النهائي المستحق</span><span><span class="num">${fmt(sub)}</span> دج</span></div></div>`;
+  const showProfit = localStorage.getItem('vc_show_profit')==='1';
+  const profitRow = showProfit ? `<div class="trow profit"><span>صافي الربح المتوقع 📈</span><span><span class="num">${fmt(profit)}</span> دج</span></div>` : '';
+  const discountRow = disc>0 ? `<div class="trow" style="color:var(--accent)"><span>خصم عام 🏷️ <button onclick="setCartDiscount(0)" style="border:none;background:none;color:var(--danger);font-size:13px;cursor:pointer;padding:0 4px">✕</button></span><span>− <span class="num">${fmt(disc)}</span> دج</span></div>` : '';
+  const discBtn = `<button onclick="openCartDiscount()" style="width:100%;height:40px;margin-top:10px;border:1.5px dashed var(--accent);border-radius:var(--r-md);background:transparent;color:var(--accent);font-family:inherit;font-weight:700;font-size:13.5px;cursor:pointer">🏷️ ${disc>0?'تعديل الخصم العام':'إضافة خصم عام على الفاتورة'}</button>`;
+  html+=`<div class="totals"><div class="trow"><span>المجموع الفرعي</span><span><span class="num">${fmt(sub)}</span> دج</span></div>${discountRow}${profitRow}<div class="trow grand"><span>الإجمالي النهائي المستحق</span><span><span class="num">${fmt(grand)}</span> دج</span></div></div>${discBtn}`;
   body.innerHTML=html;
+}
+
+/* خصم عام على السلة */
+function openCartDiscount(){
+  const {sub}=cartTotals();
+  $('#cartDiscSub').textContent=`المجموع الحالي: ${fmt(sub)} دج`;
+  $('#cartDiscAmount').value = CART_DISCOUNT||'';
+  $('#cartDiscPct').value='';
+  $('#cartDiscSheet').classList.add('show');
+}
+function applyCartDiscPct(pct){
+  const {sub}=cartTotals();
+  $('#cartDiscAmount').value=Math.round(sub*pct/100);
+  $('#cartDiscPct').value=pct;
+}
+function setCartDiscount(amt){
+  CART_DISCOUNT=Math.max(0, amt||0);
+  closeSheet('cartDiscSheet');
+  refreshCart();
+  if(amt>0) flash('تمّ تطبيق الخصم ✅');
+}
+function saveCartDiscount(){
+  const amt=+($('#cartDiscAmount').value||0);
+  const {sub}=cartTotals();
+  if(amt>sub){flash('الخصم أكبر من المجموع',true);return;}
+  setCartDiscount(amt);
 }
 
 function openLineEdit(id){
@@ -1320,25 +1641,28 @@ function resetLinePrice(){
 function toggleCart(){const open=$('#cart').classList.toggle('open');$('#cartBackdrop').classList.toggle('show',open);}
 function openPay(){$('#paySheet').classList.add('show');updateRemain();}
 function setPay(t){payType=t;document.querySelectorAll('.pt').forEach(x=>x.classList.toggle('active',x.dataset.pay===t));$('#partialBox').classList.toggle('show',t==='partial');updateRemain();}
-function updateRemain(){if(payType!=='partial'){$('#remain').textContent='';return;}const {sub}=cartTotals();const paid=+($('#paidNow').value||0);const rem=sub-paid;$('#remain').textContent=rem>0?`المتبقي المقيّد كدَيْن: ${fmt(rem)} دج`:(rem<0?'خطأ: القيمة المدفوعة أكبر من الفاتورة':'مسدد بالكامل ✅');}
+function updateRemain(){if(payType!=='partial'){$('#remain').textContent='';return;}const {grand}=cartTotals();const paid=+($('#paidNow').value||0);const rem=grand-paid;$('#remain').textContent=rem>0?`المتبقي المقيّد كدَيْن: ${fmt(rem)} دج`:(rem<0?'خطأ: القيمة المدفوعة أكبر من الفاتورة':'مسدد بالكامل ✅');}
 
 async function confirmSale(){
   if(isSubmitting) return;
-  const {sub,n}=cartTotals(); if(n===0)return;
+  const {sub,n,disc,grand}=cartTotals(); if(n===0)return;
   const cust=$('#customer').value;
   if((payType==='credit'||payType==='partial')&&cust==='cash'){flash('يجب اختيار اسم زبون لتوثيق القيود والديون الآجلة',true);return;}
   
   isSubmitting = true; $('#btnConfirmSale').disabled = true;
   
-  const lines=Object.keys(cart).map(id=>{const p=PRODUCTS.find(x=>x.id==id);return{product_id:p.id,name:p.name,qty:cart[id].qty,price:cart[id].price,cost:p.cost};});
-  const namedLines=Object.keys(cart).map(id=>{const p=PRODUCTS.find(x=>x.id==id);return{name:p.name,qty:cart[id].qty,price:cart[id].price};});
+  // توزيع الخصم العام على الأسطر بالتناسب (ليبقى القيد المحاسبي دقيقًا)
+  const factor = sub>0 ? grand/sub : 1;
+  const lines=Object.keys(cart).map(id=>{const p=PRODUCTS.find(x=>x.id==id);return{product_id:p.id,name:p.name,qty:cart[id].qty,price:Math.round(cart[id].price*factor),cost:p.cost};});
+  const namedLines=Object.keys(cart).map(id=>{const p=PRODUCTS.find(x=>x.id==id);return{name:p.name,qty:cart[id].qty,price:cart[id].price};}); // الأسعار الأصلية تظهر بالفاتورة
   const custName=cust==='cash'?'زبون عابر':(CUSTOMERS.find(c=>c.id===cust)?.name||'زبون مجهول');
-  const paidNow=payType==='partial'?(+($('#paidNow').value||0)):(payType==='cash'?sub:0);
+  const paidNow=payType==='partial'?(+($('#paidNow').value||0)):(payType==='cash'?grand:0);
   
   try{
-    const res=await VanCash.recordSale({customer_id:cust,type:payType,lines,paidNow,tva_rate: COMPANY.tva_rate || 0});
-    LAST_INVOICE={number:res.number,ts:Date.now(),customerName:custName,type:payType,lines:namedLines,subtotal:sub,tva:Math.round(sub*(COMPANY.tva_rate||0)/100),total:res.total,paid:res.paid,due:res.due};
+    const res=await VanCash.recordSale({customer_id:cust,type:payType,lines,paidNow,discount:disc,tva_rate: COMPANY.tva_rate || 0});
+    LAST_INVOICE={number:res.number,ts:Date.now(),customerName:custName,type:payType,lines:namedLines,subtotal:sub,discount:disc,tva:Math.round(grand*(COMPANY.tva_rate||0)/100),total:res.total,paid:res.paid,due:res.due};
     for(const k in cart)delete cart[k];
+    CART_DISCOUNT=0;
     $('#paidNow').value=''; PRODUCTS=await VanCash.getProductsWithStock(); CUSTOMERS=await VanCash.getCustomers();
     rebuildCustomerSelect(); refreshCart(); closeSheet('paySheet');
     $('#cart').classList.remove('open'); $('#cartBackdrop').classList.remove('show');
@@ -1518,6 +1842,14 @@ async function renderSettings(){
   const c=await VanCash.db.company.get(1)||{};
   $('#setName').value=c.name||''; $('#setPhone').value=c.phone||''; $('#setAddr').value=c.address||''; $('#setTax').value=c.tax_id||''; $('#setTva').value=c.tva_rate||0;
   $('#autoInternal').checked = (localStorage.getItem('vc_auto_internal')!=='0'); await updateBackupStatus();
+  updateSecurityStatus();
+  // تمييز زر اللغة النشط
+  document.querySelectorAll('.langBtn').forEach(b=>{
+    const on = b.dataset.lang===LANG;
+    b.style.background = on?'var(--brand)':'';
+    b.style.color = on?'#fff':'';
+    b.style.borderColor = on?'var(--brand)':'';
+  });
 }
 async function updateBackupStatus(){
   const st=await VanCash.getBackupStatus(); const el=$('#backupStatus'); if(!el)return;
@@ -1542,11 +1874,76 @@ function saveBackupPrefs(){
   flash($('#autoInternal').checked?'نظام الأرشفة الذاتي والتأمين التلقائي للقيود قيد العمل حَالاً بنجاح ✅':'تم إيقاف نظام الإنعاش والأرشفة الذاتي');
 }
 
+/* إظهار/إخفاء الربح في السلة */
+function toggleShowProfit(){
+  localStorage.setItem('vc_show_profit', $('#showProfitToggle').checked?'1':'0');
+  flash($('#showProfitToggle').checked?'سيظهر الربح في شاشة البيع 📈':'تم إخفاء الربح أمام الزبون 🔒');
+}
+
+/* كلمة السر */
+function openPinSet(){
+  $('#newPin').value=''; $('#newPin2').value='';
+  $('#removePinBtn').style.display = localStorage.getItem('vc_pin') ? 'block' : 'none';
+  $('#pinSetSheet').classList.add('show');
+}
+function savePin(){
+  const p1=$('#newPin').value.trim(), p2=$('#newPin2').value.trim();
+  if(p1.length<4){flash('كلمة السر 4 أرقام على الأقل',true);return;}
+  if(p1!==p2){flash('كلمتا السر غير متطابقتين',true);return;}
+  localStorage.setItem('vc_pin', p1);
+  closeSheet('pinSetSheet');
+  updateSecurityStatus();
+  flash('تم حفظ كلمة السر 🔒');
+}
+function removePin(){
+  if(!confirm('إلغاء كلمة السر؟ سيُفتح التطبيق دون حماية.'))return;
+  localStorage.removeItem('vc_pin');
+  closeSheet('pinSetSheet');
+  updateSecurityStatus();
+  flash('تم إلغاء كلمة السر');
+}
+function updateSecurityStatus(){
+  const has=!!localStorage.getItem('vc_pin');
+  const st=$('#pinStatus'); if(st) st.innerHTML = has ? '🔒 كلمة السر <b>مفعّلة</b>' : '🔓 لا توجد كلمة سر';
+  const btn=$('#pinBtn'); if(btn) btn.textContent = has ? '🔑 تغيير كلمة السر' : '🔑 تعيين كلمة سر للتطبيق';
+  const sp=$('#showProfitToggle'); if(sp) sp.checked = localStorage.getItem('vc_show_profit')==='1';
+}
+
 async function doExport(){
   const dump=await VanCash.exportBackup(); const json=JSON.stringify(dump); const blob=new Blob([json],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
   a.download='vancash-secure-ledger-'+new Date().toISOString().slice(0,10)+'.json'; a.click();
   await VanCash.markExported(); await updateBackupStatus(); flash('تم استخراج وحفظ النسخة الموحدة للدورة المالية بنجاح بالهاتف الخاص بك ✅');
+}
+
+/* تفريغ المنتجات والمخزون */
+async function doClearProducts(){
+  if(!confirm('⚠️ سيُحذف كل المنتجات والمخزون نهائيًا (تبقى الفواتير والزبائن). هل أنت متأكد؟'))return;
+  if(!confirm('تأكيد أخير: هذا الإجراء لا يمكن التراجع عنه. متابعة؟'))return;
+  try{
+    await VanCash.clearAllProducts();
+    PRODUCTS=await VanCash.getProductsWithStock();
+    renderProductsAdmin && renderProductsAdmin();
+    refreshHome();
+    flash('تمّ تفريغ المنتجات والمخزون ✅');
+  }catch(e){flash(e.message||'خطأ',true);}
+}
+
+/* تصفير شامل */
+async function doFactoryReset(){
+  if(!confirm('💣 تحذير شديد: سيُمسح كل شيء — المنتجات، الزبائن، الفواتير، المصاريف، السجلات. يبقى فقط اسم شركتك. هل أنت متأكد تمامًا؟'))return;
+  if(!confirm('تأكيد نهائي: ستبدأ من الصفر بالكامل. لا رجعة بعد هذا. متابعة؟'))return;
+  const word=prompt('للتأكيد النهائي، اكتب كلمة: تصفير');
+  if(word!=='تصفير'){flash('أُلغيت العملية',true);return;}
+  try{
+    await VanCash.factoryReset();
+    PRODUCTS=await VanCash.getProductsWithStock();
+    CUSTOMERS=await VanCash.getCustomers();
+    rebuildCustomerSelect();
+    refreshHome();
+    nav('home');
+    flash('تمّ التصفير الشامل — بداية جديدة ✅');
+  }catch(e){flash(e.message||'خطأ',true);}
 }
 
 async function doImport(ev){
@@ -1611,6 +2008,60 @@ async function doExpense(){
 }
 
 function openReports(){$('#reportSheet').classList.add('show');loadReport('today');}
+
+/* ============ أرشيف الفواتير ============ */
+let ARCHIVE_INVOICES=[], ARCH_CURRENT=null;
+async function openArchive(){
+  ARCHIVE_INVOICES = await VanCash.getInvoices(300);
+  $('#qarch').value='';
+  renderArchive();
+  $('#archiveSheet').classList.add('show');
+}
+function renderArchive(){
+  const q=$('#qarch').value.trim().toLowerCase();
+  const list=$('#archiveList');
+  const arr=ARCHIVE_INVOICES.filter(i=> !q || (i.number||'').toLowerCase().includes(q) || (i.customerName||'').toLowerCase().includes(q));
+  if(arr.length===0){ list.innerHTML='<div style="text-align:center;color:var(--ink-soft);padding:30px">لا توجد فواتير</div>'; return; }
+  list.innerHTML = arr.map(i=>{
+    const d=new Date(i.ts).toLocaleString('fr-DZ',{dateStyle:'short',timeStyle:'short'});
+    const typeTxt = i.type==='cash'?'نقدي':(i.type==='credit'?'آجل':'جزئي');
+    const dueLabel = i.due>0 ? `<span style="color:var(--danger);font-size:11px">دَيْن ${fmt(i.due)} دج</span>` : `<span style="color:var(--ok);font-size:11px">مسدَّد ✅</span>`;
+    return `<div class="ev" style="cursor:pointer" onclick="openArchInvoice('${esc(i.id)}')">
+      <div class="ico" style="background:var(--brand-soft);color:var(--brand)">🧾</div>
+      <div class="info"><b>${esc(i.number)} · ${esc(i.customerName)}</b><span>${d} · ${typeTxt} · ${dueLabel}</span></div>
+      <div class="amt"><span class="num">${fmt(i.total)}</span> دج</div>
+    </div>`;
+  }).join('');
+}
+async function openArchInvoice(id){
+  try{
+    ARCH_CURRENT = await VanCash.getInvoiceFull(id);
+    $('#archInvNo').textContent = ARCH_CURRENT.number;
+    archSetPaper(58);
+    $('#archPrintMsg').textContent='';
+    $('#archInvSheet').classList.add('show');
+  }catch(e){ flash(e.message||'تعذّر فتح الفاتورة', true); }
+}
+function archDraw(){
+  if(!ARCH_CURRENT)return;
+  const canvas=VCPrint.renderCanvas(ARCH_CURRENT, COMPANY);
+  const t=$('#archInvCanvas'); t.width=canvas.width; t.height=canvas.height;
+  t.getContext('2d').drawImage(canvas,0,0);
+}
+function archSetPaper(mm){ VCPrint.setPaper(mm); $('#ap58').style.background=mm===58?'var(--brand-soft)':'var(--surface-2)'; $('#ap80').style.background=mm===80?'var(--brand-soft)':'var(--surface-2)'; archDraw(); }
+async function reprintArchived(){
+  const m=$('#archPrintMsg');
+  try{ m.style.color='var(--ink-soft)'; m.textContent='جارٍ الإرسال للطابعة…'; await VCPrint.print(ARCH_CURRENT, COMPANY); m.style.color='var(--ok)'; m.textContent='تمت إعادة الطباعة ✅'; }
+  catch(e){ m.style.color='var(--danger)'; m.textContent=e.message||'فشل الاتصال بالطابعة'; }
+}
+async function reshareArchived(){
+  const canvas=$('#archInvCanvas');
+  canvas.toBlob(async(blob)=>{
+    const file=new File([blob], ARCH_CURRENT.number+'.png', {type:'image/png'});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){ try{ await navigator.share({files:[file],title:'فاتورة '+ARCH_CURRENT.number}); }catch(e){} }
+    else { const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=ARCH_CURRENT.number+'.png'; a.click(); }
+  });
+}
 async function loadReport(range){
   document.querySelectorAll('#reportSheet .tab').forEach(t=>t.classList.toggle('active',t.dataset.rep===range));
   const now=Date.now(); let from; const t=new Date();t.setHours(0,0,0,0);
@@ -1703,6 +2154,84 @@ function triggerPwaInstall() {
   });
 }
 
+/* ============================================================
+   التفعيل (مستوى 2) + كلمة السر
+   ============================================================ */
+/* الكلمة السرية للمصنع — غيّرها لقيمتك الخاصة قبل البيع */
+const FACTORY_SECRET = "VANCASH-DZ-2026";
+
+/* دالة تجزئة بسيطة (تنتج كودًا من نص) */
+function vcHash(str){
+  let h=5381;
+  for(let i=0;i<str.length;i++){ h=((h<<5)+h)+str.charCodeAt(i); h=h&0xFFFFFFFF; }
+  return (h>>>0).toString(36).toUpperCase();
+}
+/* توليد كود تفعيل من اسم الترخيص (يُستعمل في مولّد الأكواد لدى البائع).
+   الكود = VC-AAAA-BBBB حيث:
+     AAAA = أول 4 أحرف من تجزئة (اسم الترخيص + كلمة المصنع)
+     BBBB = أول 4 أحرف من تجزئة (AAAA + كلمة المصنع)  ← رقم تحقق
+   هكذا أي كود صالح يحمل توقيع كلمة المصنع، دون الحاجة لقائمة. */
+function genActivationCode(licenseName){
+  const base = (licenseName||'').trim().toLowerCase() + "|" + FACTORY_SECRET;
+  const A = vcHash(base).padStart(4,'0').slice(0,4);
+  const B = vcHash(A + "|" + FACTORY_SECRET).padStart(4,'0').slice(0,4);
+  return "VC-" + A + "-" + B;
+}
+/* التحقق: نتأكد أن الجزء الثاني هو رقم تحقق صحيح للجزء الأول بكلمة المصنع */
+function isValidActivation(code){
+  code=(code||'').trim().toUpperCase();
+  if(!/^VC-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(code)) return false;
+  const m=code.match(/^VC-([A-Z0-9]{4})-([A-Z0-9]{4})$/);
+  const A=m[1], B=m[2];
+  const expected = vcHash(A + "|" + FACTORY_SECRET).padStart(4,'0').slice(0,4);
+  return expected === B;
+}
+
+function checkActivation(){
+  const code=$('#actCode').value.trim().toUpperCase();
+  if(isValidActivation(code)){
+    localStorage.setItem('vc_activated','1');
+    localStorage.setItem('vc_activation_code', code);
+    $('#activationScreen').style.display='none';
+    proceedAfterActivation();
+  }else{
+    $('#actMsg').textContent='كود التفعيل غير صحيح ❌';
+    $('#actCode').value='';
+  }
+}
+
+/* كلمة السر */
+function checkPin(){
+  const pin=$('#lockPin').value;
+  const saved=localStorage.getItem('vc_pin');
+  if(pin===saved){
+    $('#lockScreen').style.display='none';
+    startApp();
+  }else{
+    $('#lockMsg').textContent='كلمة السر غير صحيحة ❌';
+    $('#lockPin').value='';
+  }
+}
+
+/* تدفّق الإقلاع: تفعيل → كلمة سر → التطبيق */
+function gatedBoot(){
+  if(localStorage.getItem('vc_activated')!=='1'){
+    $('#activationScreen').style.display='flex';
+    return;
+  }
+  proceedAfterActivation();
+}
+function proceedAfterActivation(){
+  const pin=localStorage.getItem('vc_pin');
+  if(pin){
+    $('#lockScreen').style.display='flex';
+    setTimeout(()=>$('#lockPin').focus(),200);
+  }else{
+    startApp();
+  }
+}
+function startApp(){ boot(); }
+
 async function boot(){
   try{
     await VanCash.initDB(); 
@@ -1711,10 +2240,10 @@ async function boot(){
     PRODUCTS=await VanCash.getProductsWithStock(); 
     CUSTOMERS=await VanCash.getCustomers(); 
     rebuildCustomerSelect();
+    applyLang(LANG);   // طبّق اللغة المحفوظة على كل الواجهة
     nav('home');
   }catch(e){
     console.error("Boot Error:", e);
-    // تم إلغاء الريفراش الإجباري نهائياً لمنع التكرار اللانهائي
     flash('عطل فني في قراءة البيانات، الرجاء تحديث الصفحة يدوياً أو مسح بيانات المتصفح', true);
   }
 }
@@ -1744,7 +2273,7 @@ async function boot(){
   }
 })();
 
-boot();
+gatedBoot();
 </script>
 </body>
 </html>
